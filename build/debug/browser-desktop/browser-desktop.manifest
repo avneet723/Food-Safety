@@ -1,0 +1,13 @@
+CACHE MANIFEST
+
+#49e4e92ebbd148d5ae0be388d430ed0a version 1362172218537
+
+CACHE:
+spritesheets/spritesheetSizeMap.json
+index.html
+browser-desktop.js
+
+FALLBACK:
+
+NETWORK:
+*

@@ -44,5 +44,6 @@
 		"bundleID": "example.bundle",
 		"appleID": "1234567",
 		"version": "1.0.0"
-	}
+	},
+	"sdkVersion": "release-0.1.2"
 }
