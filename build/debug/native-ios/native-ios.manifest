@@ -3,6 +3,10 @@ CACHE MANIFEST
 #49e4e92ebbd148d5ae0be388d430ed0a version undefined
 
 CACHE:
+resources/images/TitleBG.psd
+spritesheets/resources-images-dark0.png
+spritesheets/resources-images0.png
+spritesheets/resources-images1.png
 spritesheets/spritesheetSizeMap.json
 index.html
 native-ios.js
