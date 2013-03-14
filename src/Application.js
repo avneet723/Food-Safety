@@ -1,18 +1,8 @@
-/* @license
- * This file is part of the Game Closure SDK.
- *
- * The Game Closure SDK is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
-
- * The Game Closure SDK is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- * GNU General Public License for more details.
-
- * You should have received a copy of the GNU General Public License
- * along with the Game Closure SDK.  If not, see <http://www.gnu.org/licenses/>.
+/* 
+ * Application.js serves as the entry point for the game. In the food safety game 
+ * its purpose is to initialize the title screen, game screen, help screen, about
+ * screen and exit screen and handle events for directing the game flow. 
+ * 
  */
 // devkit imports
 import device;
@@ -20,11 +10,20 @@ import ui.StackView as StackView;
 import ui.TextView as TextView;
 // user imports
 import src.TitleScreen as TitleScreen;
+import src.GameScreen as GameScreen;
+import src.HelpScreen as HelpScreen;
+import src.ExitScreen as ExitScreen;
+import src.AboutScreen as AboutScreen;
+import src.soundcontroller as soundcontroller;
 
 exports = Class(GC.Application, function () {
 
 	this.initUI = function () {
-		var titlescreen = new TitleScreen();
+		var titlescreen = new TitleScreen()
+			gamescreen = new GameScreen()
+			aboutscreen = new AboutScreen()
+			helpscreen = new HelpScreen()
+			exitscreen = new ExitScreen();
 		
 		this.view.style.backgroundColor = '#30B040';
 
@@ -33,8 +32,6 @@ exports = Class(GC.Application, function () {
 	      superview: this,
 	      x: 0,
 	      y: 0,
-	      // x: device.width / 2 - 160,
-	      // y: device.height / 2 - 240,
 	      width: 800,
 	      height: 600,
 	      clip: true,
@@ -43,12 +40,41 @@ exports = Class(GC.Application, function () {
 
 	    rootView.push(titlescreen);
 
-		// var textview = new TextView({
-		// 	superview: this.view,
-		// 	layout: "box",
-		// 	text: "Hello, world!",
-		// 	color: "white"
-		// });
+	    var sound = soundcontroller.getSound();
+
+	    /* Listening to the start event dispatched by the title screen when the start
+	     * button has been pressed
+	     */
+	    titlescreen.on('titlescreen:start', function () {
+			sound.play('levelmusic');
+			rootView.push(gamescreen);
+			// Push the gamescreen to the rootview
+			// Dispatch a custom event to the game screen when the start button is hit
+		});
+
+		/* Listening to the help event dispatched by the title screen when the help button 
+		 * has been pressed
+		 */
+		titlescreen.on('titlescreen:help', function () {
+			rootView.push(helpscreen);
+			// Push the help screen to the rootview
+		});
+
+		/* Listening to the about event dispatched by the title screen when the about button 
+		 * is pressed on the titlescreen
+		 */
+		titlescreen.on('titlescreen:about', function () {
+			rootView.push(aboutscreen);
+		  	// Push the about screen to the rootview
+		});
+
+		/* Listing for the exit event didspatched by the title screen when the exit button
+		 * is pressed. 
+		 */
+		titlescreen.on('titlescreen:exit', function () {
+			rootView.push(exitscreen);
+			// Save state and exit the game
+		}); 
 	};
 	
 	this.launchUI = function () {};

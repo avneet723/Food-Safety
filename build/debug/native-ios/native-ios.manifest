@@ -4,6 +4,8 @@ CACHE MANIFEST
 
 CACHE:
 resources/images/TitleBG.psd
+resources/sounds/effect/whack.mp3
+resources/sounds/music/levelmusic.mp3
 spritesheets/resources-images-dark0.png
 spritesheets/resources-images0.png
 spritesheets/resources-images1.png
