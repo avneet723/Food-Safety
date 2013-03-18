@@ -2,6 +2,14 @@
 	"appID": "49e4e92ebbd148d5ae0be388d430ed0a",
 	"shortName": "food-safety",
 	"title": "food-safety",
+	"studio": {
+		"name": "Example Studio Name",
+		"domain": "studio.example.com",
+		"stagingDomain": "staging.example.com"
+	},
+	"supportedOrientations": [
+		"landscape"
+	],
 	"icons": {
 		"28": "preload/icons/icon28.png",
 		"38": "preload/icons/icon38.png",
@@ -13,14 +21,6 @@
 		"144": "preload/icons/icon144.png",
 		"512": "preload/icons/icon512.png"
 	},
-	"studio": {
-		"name": "Example Studio Name",
-		"domain": "studio.example.com",
-		"stagingDomain": "staging.example.com"
-	},
-	"supportedOrientations": [
-		"landscape"
-	],
 	"description": "",
 	"preload": {
 		"autoHide": true,
@@ -45,5 +45,5 @@
 		"appleID": "1234567",
 		"version": "1.0.0"
 	},
-	"sdkVersion": "release-0.1.2"
+	"sdkVersion": "release-0.1.8"
 }
