@@ -8,13 +8,19 @@ import ui.ImageView;
 import ui.TextView;
  
 exports = Class(ui.ImageView, function (supr) {
-  this.init = function (opts) {
-    opts = merge(opts, {
-      x: 0,
-      y: 0,
+  var self = this;
+
+  this.init = function (app) {
+    self.app = app;
+
+    opts = {
       image: "resources/images/CookingScreen.png"
-    });
+    };
 
     supr(this, 'init', [opts]);
+  };
+
+  this.onInputSelect = function() {
+    self.app.goBack();
   };
 });

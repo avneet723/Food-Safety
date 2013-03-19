@@ -4,18 +4,22 @@ import ui.ImageView;
 import ui.widget.ButtonView;
 
 exports = Class(ui.ImageView, function (supr) {
-  this.init = function (opts) {
-    opts = merge(opts, {
+  var self = this;
+
+  this.init = function (app) {
+    self.app = app;
+
+    opts = {
       x: 0,
       y: 0,
       image: "resources/images/title_screen.png"
-    });
+    };
 
     supr(this, 'init', [opts]);
   };
 
   this.buildView = function () {
-    var startbutton = new ui.widget.ButtonView({
+    var startButton = new ui.widget.ButtonView({
       superview: this,
       x: device.width / 2 - 300,
       y: device.height / 2 - 25,
@@ -25,7 +29,7 @@ exports = Class(ui.ImageView, function (supr) {
       title: "Play"
     });
 
-    var helpbutton = new ui.widget.ButtonView({
+    var helpButton = new ui.widget.ButtonView({
       superview: this,
       x: device.width / 2 - 150,
       y: device.height / 2 - 25,
@@ -33,10 +37,9 @@ exports = Class(ui.ImageView, function (supr) {
       height: 50, 
       backgroundColor: '#ccc',
       title: "Help!"
-
     });
 
-    var aboutbutton = new ui.widget.ButtonView({
+    var aboutButton = new ui.widget.ButtonView({
       superview: this,
       x: device.width / 2 + 0,
       y: device.height / 2 - 25,
@@ -46,7 +49,7 @@ exports = Class(ui.ImageView, function (supr) {
       title: "About"
     });
 
-    var exitbutton = new ui.widget.ButtonView({
+    var exitButton = new ui.widget.ButtonView({
       superview: this,
       x: device.width / 2 + 150,
       y: device.height / 2 - 25,
@@ -56,22 +59,20 @@ exports = Class(ui.ImageView, function (supr) {
       title: "Exit"
     });
 
+    startButton.onInputSelect = function() {
+      self.app.goToScreen('game');
+    };
 
-    startbutton.on('InputSelect', bind(this, function () {
-      this.emit('titlescreen:start');
-    }));
+    helpButton.onInputSelect = function() {
+      self.app.goToScreen('help');
+    };
 
-    helpbutton.on('InputSelect', bind(this, function() {
-      this.emit('titlescreen:help');
-    }));
+    aboutButton.onInputSelect = function() {
+      self.app.goToScreen('about');
+    };
 
-    aboutbutton.on('InputSelect', bind(this, function() {
-      this.emit('titlescreen:about');
-    }));
-    
-    exitbutton.on('InputSelect', bind(this, function() {
-      this.emit('titlescreen:exit');
-    }));
-
+    exitButton.onInputSelect = function() {
+      self.app.goToScreen('exit');
+    };
   };
 });

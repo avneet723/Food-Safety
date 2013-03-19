@@ -11,14 +11,19 @@ import ui.ImageView;
 import ui.TextView;
  
 exports = Class(ui.TextView, function (supr) {
-  this.init = function (opts) {
-    opts = merge(opts, {
-      x: 0,
-      y: 0,
+  var self = this;
+
+  this.init = function (app) {
+    self.app = app;
+
+    opts = {
       text: "Exit Screen" 
-    });
+    };
 
     supr(this, 'init', [opts]);
   };
 
+  this.onInputSelect = function() {
+    self.app.goBack();
+  };
 });
