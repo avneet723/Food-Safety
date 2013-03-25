@@ -32,6 +32,15 @@ exports = Class(ui.View, function (supr) {
       height: 115,
       image: "resources/images/water-stream.png"
     });
+    
+    var dispenser = new ui.ImageView({
+      superview: this,
+      x: 100,
+      y: 30,
+      width: 180,
+      height: 180,
+      image: "resources/images/dispenser.png"
+    });
   };
 
   this.onInputSelect = function() {
