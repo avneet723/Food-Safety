@@ -8,6 +8,7 @@
 import device;
 import ui.StackView as StackView;
 import ui.TextView as TextView;
+import ui.ImageView as ImageView;
 // user imports
 import src.TitleScreen as TitleScreen;
 import src.GameScreen as GameScreen;
@@ -37,6 +38,22 @@ exports = Class(GC.Application, function () {
       backgroundColor: '#37B34A'
     });
 
+    self.mouseHand = new ImageView({
+      superview: this,
+      width: 90.8,
+      height: 100,
+      image: "resources/images/mouseHand.png",
+      canHandleEvents: false
+    })
+
+    this.onInputMove = function(evt, point) {
+      //console.debug(point.x + ", " + point.y);
+      self.mouseHand.updateOpts({
+        x: point.x - self.mouseHand.style.width / 3,
+        y: point.y - 10
+      });
+    };
+
     var screens = {
       title: new TitleScreen(self),
       game: new GameScreen(self),
@@ -58,7 +75,8 @@ exports = Class(GC.Application, function () {
       if (rootView.getStack().length > 1) rootView.pop();
     }
 
-    self.goToScreen('title');
+    //self.goToScreen('title');
+    self.goToScreen('handwashing');
 	};
 	
 	this.launchUI = function () {};
