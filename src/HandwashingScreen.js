@@ -8,6 +8,8 @@ import ui.ImageView;
 import ui.SpriteView;
 import ui.TextView;
 import ui.widget.ButtonView;
+
+import src.Timer as Timer;
  
 exports = Class(ui.View, function (supr) {
   var self = this;
@@ -35,6 +37,11 @@ exports = Class(ui.View, function (supr) {
       visible: false
     });
 
+    waterStream.onInputSelect = function() {
+      hoverBubbles.style.visible = false;
+      dirtyBubbles.style.visible = false;
+    }
+
     var faucetButton = new ui.widget.ButtonView({
       superview: this,
       x: 300,
@@ -57,12 +64,48 @@ exports = Class(ui.View, function (supr) {
       backgroundColor: "rgba(0, 0, 0, 0)"
     });
 
+    var glovesButton = new ui.widget.ButtonView({
+      superview: this,
+      x: 563,
+      y: 174,
+      height: 70,
+      width: 130,
+      backgroundColor: "rgba(0, 0, 0, 0)"
+    });
+
+    var glovedHands = new ui.ImageView({
+      superview: this,
+      x: 116,
+      y: 284,
+      width: 496,
+      height: 264,
+      image: "resources/images/glovedHands.png",
+      visible: false
+    });
+
+    glovesButton.onInputSelect = function() {
+      hoverHand.style.visible = false;
+      dirtyHand.style.visible = false;
+      glovedHands.style.visible = true;
+    }
+
+
+    var timer = new Timer({
+      superview: this,
+      x: 97,
+      y: 265,
+      width: 85,
+      height: 85,
+      visible: false
+    });
+
     soapButton.onInputSelect = function() {
       dirtyHand.updateOpts({visible: true});
       hoverHand.updateOpts({visible: true});
 
       self.app.mouseHand.updateOpts({visible: false});
-
+      timer.updateOpts({visible: true});
+      timer.start();
 
       dirts.forEach(function(dirt) {
         dirt.updateOpts({visible: true});
@@ -107,6 +150,7 @@ exports = Class(ui.View, function (supr) {
       if (dispenser.isPlaying) return;
       dispenser.setFrame(0);
       dispenser.style.visible = false;
+      paperTowel.style.visible = true;
     }
 
     var dirtyHand = new ui.ImageView({
@@ -117,6 +161,17 @@ exports = Class(ui.View, function (supr) {
       height: 265,
       image: "resources/images/cleanHand.png",
       visible: false
+    });
+
+    var dirtyBubbles = new ui.ImageView({
+      superview: dirtyHand,
+      y: 130,
+      x: 50,
+      width: 171,
+      height: 131,
+      visible: false,
+      image: "resources/images/bubbles.png",
+      canHandleEvents: false
     });
 
     var dirts = new Array();
@@ -157,6 +212,7 @@ exports = Class(ui.View, function (supr) {
     });
 
     dirts[6].updateOpts({
+      width: 26, height: 44,
       x: 294, y: 392
     });
 
@@ -165,7 +221,33 @@ exports = Class(ui.View, function (supr) {
     });
 
     dirts[8].updateOpts({
+      width: 58, height: 53,
       x: 192, y: 453
+    });
+
+    var noDirt = function() {
+      for (var i = 0; i < dirts.length; i++) {
+        if (dirts[i].style.opacity != 0) return false;
+      }
+      return true;
+    }
+
+    dirts.forEach(function(dirt) {
+      dirt.onInputMove = function(evt, point) {
+        dirt.style.opacity = Math.max(dirt.style.opacity - .05, 0);
+        if (noDirt()) {
+          if (timer.timerCount < 20) {
+            alert("You cleaned too fast! You should take at least 20 seconds");
+            dirts.forEach(function(dirt) {
+              dirt.updateOpts({opacity: 1});
+            });
+            timer.restart();
+          } else {
+            dirtyBubbles.style.visible = true;
+            timer.stop();
+          }
+        }
+      };
     });
 
     var hoverHand = new ui.ImageView({
@@ -175,6 +257,25 @@ exports = Class(ui.View, function (supr) {
       image: "resources/images/hoverHand.png",
       visible: false,
       canHandleEvents: false
+    });
+
+    var hoverBubbles = new ui.ImageView({
+      superview: hoverHand,
+      y: 100,
+      width: 171,
+      height: 131,
+      image: "resources/images/bubbles.png",
+      canHandleEvents: false
+    });
+
+    var paperTowel = new ui.ImageView({
+      superview: hoverHand,
+      y: 50,
+      width: 149,
+      height: 180,
+      image: "resources/images/paperTowel.png",
+      canHandleEvents: false,
+      visible: false
     });
 
     this.onInputMove = function(evt, point) {
