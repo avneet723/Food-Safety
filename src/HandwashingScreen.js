@@ -20,6 +20,14 @@ exports = Class(ui.View, function (supr) {
   };
 
   this.buildView = function() {
+    var paperTowelOut = false;
+    var dirt = true;
+    var waterOn = false;
+    var scrubHands = false;
+    var rinseHands = false;
+    var glovesOn = false;
+    var paperTowelInHand = false;
+
     new ui.ImageView({
       superview: this,
       width: 800,
@@ -58,8 +66,15 @@ exports = Class(ui.View, function (supr) {
     });
 
     waterStream.onInputSelect = function() {
-      hoverBubbles.style.visible = false;
-      dirtyBubbles.style.visible = false;
+      if (scrubHands && !dirt && !paperTowelInHand) {
+        hoverBubbles.style.visible = false;
+        dirtyBubbles.style.visible = false;
+
+        scrubHands = false;
+        rinseHands = true;
+      } else if (!paperTowelInHand) {
+        console.debug("You need to scrub hands for 20 seconds before rinsing");
+      }
     }
 
     var faucetButton = new ui.widget.ButtonView({
@@ -72,7 +87,12 @@ exports = Class(ui.View, function (supr) {
     });
 
     faucetButton.onInputSelect = function() {
-      waterStream.style.visible = !waterStream.style.visible;
+      if (!scrubHands) {
+        waterStream.style.visible = !waterStream.style.visible;
+        waterOn = !waterOn;
+      } else {
+        console.debug("Don't touch the faucet when you are scrubbing your hands");
+      }
     };
 
     var soapButton = new ui.widget.ButtonView({
@@ -104,9 +124,16 @@ exports = Class(ui.View, function (supr) {
     });
 
     glovesButton.onInputSelect = function() {
-      hoverHand.style.visible = false;
-      dirtyHand.style.visible = false;
-      glovedHands.style.visible = true;
+      if (!glovesOn && rinseHands) {
+        hoverHand.style.visible = false;
+        dirtyHand.style.visible = false;
+        glovedHands.style.visible = true;
+
+        rinseHands = false;
+        glovesOn = true;
+      } else {
+        console.debug("You need to wash your hands before putting on gloves");
+      }
     }
 
 
@@ -120,16 +147,24 @@ exports = Class(ui.View, function (supr) {
     });
 
     soapButton.onInputSelect = function() {
-      dirtyHand.updateOpts({visible: true});
-      hoverHand.updateOpts({visible: true});
+      if (waterOn && paperTowelOut && !(scrubHands || rinseHands || glovesOn)) {
+        dirtyHand.updateOpts({visible: true});
+        hoverHand.updateOpts({visible: true});
 
-      self.app.mouseHand.updateOpts({visible: false});
-      timer.updateOpts({visible: true});
-      timer.start();
+        self.app.mouseHand.updateOpts({visible: false});
+        timer.updateOpts({visible: true});
+        timer.start();
 
-      dirts.forEach(function(dirt) {
-        dirt.updateOpts({visible: true});
-      });
+        dirts.forEach(function(dirt) {
+          dirt.updateOpts({visible: true});
+        });
+
+        scrubHands = true;
+      } else if (scrubHands || rinseHands || glovesOn) {
+        console.debug("You already applied the soap");
+      } else {
+        console.debug("Make sure the water is turned on and the paper towel is out");
+      }
     };
 
     var dispenserImage = new ui.ImageView({
@@ -160,17 +195,31 @@ exports = Class(ui.View, function (supr) {
     };
 
     dispenserImage.onInputSelect = function() {
-      dispenser.startAnimation("run", {callback: function() {
-        dispenser.setFrame(3);
-        dispenser.style.visible = true;
-      }});
+      if (!scrubHands | !rinseHands) {
+        dispenser.startAnimation("run", {callback: function() {
+          dispenser.setFrame(3);
+          dispenser.style.visible = true;
+        }});
+        paperTowelOut = true;
+      }
     };
 
     dispenser.onInputSelect = function() {
       if (dispenser.isPlaying) return;
+
+      if (scrubHands) {
+        console.debug("Your hands have not been scrubbed");
+        return;
+      }
+
       dispenser.setFrame(0);
       dispenser.style.visible = false;
-      paperTowel.style.visible = true;
+
+      if (rinseHands) {
+        paperTowel.style.visible = true;
+      }
+      paperTowelOut = false;
+      paperTowelInHand = true;
     }
 
     var dirtyHand = new ui.ImageView({
@@ -246,10 +295,13 @@ exports = Class(ui.View, function (supr) {
     });
 
     var noDirt = function() {
-      for (var i = 0; i < dirts.length; i++) {
-        if (dirts[i].style.opacity != 0) return false;
+      if (scrubHands) {
+        for (var i = 0; i < dirts.length; i++) {
+          if (dirts[i].style.opacity != 0) return false;
+        }
+        dirt = false;
+        return true;
       }
-      return true;
     }
 
     dirts.forEach(function(dirt) {
