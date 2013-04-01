@@ -20,6 +20,7 @@ import src.ServingScreen as ServingScreen;
 import src.HandwashingScreen as HandwashingScreen;
 import src.CookingScreen as CookingScreen;
 import src.CoolerScreen as CoolerScreen;
+import src.StepScreen as StepScreen;
 
 exports = Class(GC.Application, function () {
   var self = this;
@@ -36,6 +37,10 @@ exports = Class(GC.Application, function () {
       height: 600,
       clip: true,
       backgroundColor: '#37B34A'
+    });
+
+    var stepScreen = new StepScreen({
+      superview: this
     });
 
     self.mouseHand = new ImageView({
@@ -73,6 +78,10 @@ exports = Class(GC.Application, function () {
 
     self.goBack = function() {
       if (rootView.getStack().length > 1) rootView.pop();
+    }
+
+    self.showStepScreen = function(text) {
+      stepScreen.show(text);
     }
 
     //self.goToScreen('title');

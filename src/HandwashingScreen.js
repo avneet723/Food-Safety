@@ -27,6 +27,26 @@ exports = Class(ui.View, function (supr) {
       image: "resources/images/handwashing.png"
     });
 
+    new ui.widget.ButtonView({
+      superview: this,
+      x: 10, y: 10,
+      width: 100,
+      height: 20,
+      title: "Instructions",
+      backgroundColor: "black",
+      text: { color: "white"}
+    }).onInputSelect = function() {
+      self.app.showStepScreen(
+        "1. Check for paper towel\n" +
+        "2. Turn on the water\n" +
+        "3. Get soap\n" +
+        "4. Scrub hands to remove dirt for at least 20 sec.\n" +
+        "5. Rinse your hands\n" +
+        "6. Dry your hands\n" +
+        "7. Put on gloves\n"
+      );
+    };
+
     var waterStream = new ui.ImageView({
       superview: this,
       x: 347,
