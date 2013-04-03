@@ -6,8 +6,6 @@ import ui.SpriteView;
 import ui.TextView;
 
 exports = Class(ui.View, function (supr) {
-  var self = this;
-
   this.init = function (opts) {
     supr(this, 'init', [opts]);
   };
@@ -44,7 +42,6 @@ exports = Class(ui.View, function (supr) {
   }
 
   this.show = function(text) {
-    console.debug(this.popup.text);
     this.popup.updateOpts({text: text});
     this.style.visible = true;
   }

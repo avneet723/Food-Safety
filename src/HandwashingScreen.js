@@ -20,6 +20,7 @@ exports = Class(ui.View, function (supr) {
   };
 
   this.buildView = function() {
+    var initial = true;
     var paperTowelOut = false;
     var dirt = true;
     var waterOn = false;
@@ -66,14 +67,16 @@ exports = Class(ui.View, function (supr) {
     });
 
     waterStream.onInputSelect = function() {
-      if (scrubHands && !dirt && !paperTowelInHand) {
+      if (scrubHands && !dirt) {
         hoverBubbles.style.visible = false;
         dirtyBubbles.style.visible = false;
 
         scrubHands = false;
         rinseHands = true;
-      } else if (!paperTowelInHand) {
-        console.debug("You need to scrub hands for 20 seconds before rinsing");
+      } else if (dirt) {
+        self.app.showNotification("Please remove all dirt before rinsing hands.", "error");
+      } else {
+        self.app.showNotification("You already rinsed your hands.", "error");
       }
     }
 
@@ -87,11 +90,11 @@ exports = Class(ui.View, function (supr) {
     });
 
     faucetButton.onInputSelect = function() {
-      if (!scrubHands) {
+      if (initial || paperTowelInHand) {
         waterStream.style.visible = !waterStream.style.visible;
         waterOn = !waterOn;
       } else {
-        console.debug("Don't touch the faucet when you are scrubbing your hands");
+        self.app.showNotification("Don't touch the faucet when you are scrubbing your hands", "error");
       }
     };
 
@@ -124,7 +127,7 @@ exports = Class(ui.View, function (supr) {
     });
 
     glovesButton.onInputSelect = function() {
-      if (!glovesOn && rinseHands) {
+      if (!glovesOn && rinseHands && paperTowelInHand && !waterOn) {
         hoverHand.style.visible = false;
         dirtyHand.style.visible = false;
         glovedHands.style.visible = true;
@@ -132,7 +135,7 @@ exports = Class(ui.View, function (supr) {
         rinseHands = false;
         glovesOn = true;
       } else {
-        console.debug("You need to wash your hands before putting on gloves");
+        self.app.showNotification("You need to wash your hands before putting on gloves.", "error");
       }
     }
 
@@ -159,11 +162,12 @@ exports = Class(ui.View, function (supr) {
           dirt.updateOpts({visible: true});
         });
 
+        initial = false;
         scrubHands = true;
       } else if (scrubHands || rinseHands || glovesOn) {
-        console.debug("You already applied the soap");
+        self.app.showNotification("You already applied the soap", "error");
       } else {
-        console.debug("Make sure the water is turned on and the paper towel is out");
+        self.app.showNotification("Make sure the water is turned on and the paper towel is out", "error");
       }
     };
 
@@ -208,7 +212,7 @@ exports = Class(ui.View, function (supr) {
       if (dispenser.isPlaying) return;
 
       if (scrubHands) {
-        console.debug("Your hands have not been scrubbed");
+        self.app.showNotification("Your hands have not been scrubbed", "error");
         return;
       }
 
@@ -309,7 +313,7 @@ exports = Class(ui.View, function (supr) {
         dirt.style.opacity = Math.max(dirt.style.opacity - .05, 0);
         if (noDirt()) {
           if (timer.timerCount < 20) {
-            alert("You cleaned too fast! You should take at least 20 seconds");
+            self.app.showNotification("You cleaned too fast! You should take at least 20 seconds", "error");
             dirts.forEach(function(dirt) {
               dirt.updateOpts({opacity: 1});
             });

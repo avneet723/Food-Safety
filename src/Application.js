@@ -21,6 +21,7 @@ import src.HandwashingScreen as HandwashingScreen;
 import src.CookingScreen as CookingScreen;
 import src.CoolerScreen as CoolerScreen;
 import src.StepScreen as StepScreen;
+import src.Notification as Notification;
 
 exports = Class(GC.Application, function () {
   var self = this;
@@ -40,6 +41,10 @@ exports = Class(GC.Application, function () {
     });
 
     var stepScreen = new StepScreen({
+      superview: this
+    });
+
+    var notification = new Notification({
       superview: this
     });
 
@@ -82,6 +87,10 @@ exports = Class(GC.Application, function () {
 
     self.showStepScreen = function(text) {
       stepScreen.show(text);
+    }
+
+    self.showNotification = function(text, type) {
+      notification.show(text, type);
     }
 
     //self.goToScreen('title');
