@@ -19,6 +19,8 @@ exports = Class(ui.View, function (supr) {
       superview: this,
       width: this.style.width,
       height: this.style.height,
+      wrap: true,
+      padding: 15,
       color: "white"
     });
   };
@@ -48,6 +50,6 @@ exports = Class(ui.View, function (supr) {
 
     this.hideTimer = setTimeout(function() {
       self.style.visible = false;
-    }, 4000);
+    }, 8000);
   }
 });

@@ -93,8 +93,8 @@ exports = Class(GC.Application, function () {
       notification.show(text, type);
     }
 
-    //self.goToScreen('title');
-    self.goToScreen('handwashing');
+    self.goToScreen('title');
+    //self.goToScreen('handwashing');
 	};
 	
 	this.launchUI = function () {};

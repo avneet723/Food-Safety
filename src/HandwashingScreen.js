@@ -38,7 +38,7 @@ exports = Class(ui.View, function (supr) {
 
     new ui.widget.ButtonView({
       superview: this,
-      x: 10, y: 10,
+      x: 350, y: 10,
       width: 100,
       height: 20,
       title: "Instructions",
@@ -54,6 +54,23 @@ exports = Class(ui.View, function (supr) {
         "6. Dry your hands\n" +
         "7. Put on gloves\n"
       );
+    };
+
+    new ui.widget.ButtonView({
+      superview: this,
+      x: 0, y: 0,
+      width: 100,
+      height: 40,
+      title: "Back",
+      image: "resources/images/arrow.png",
+      text: {
+        horizontalAlign: "right",
+        size: 14,
+        padding: 10,
+        color: "White"
+      }
+    }).onInputSelect = function() {
+      self.app.goBack();
     };
 
     var waterStream = new ui.ImageView({
@@ -134,6 +151,12 @@ exports = Class(ui.View, function (supr) {
 
         rinseHands = false;
         glovesOn = true;
+
+      self.app.showStepScreen(
+          "You have successfully washed your hands.\nPlease proceed to the next station."
+      );
+      } else if (paperTowelInHand && waterOn) {
+        self.app.showNotification("Please turn off water with paper towel before putting gloves on.", "error");
       } else {
         self.app.showNotification("You need to wash your hands before putting on gloves.", "error");
       }
@@ -228,7 +251,7 @@ exports = Class(ui.View, function (supr) {
 
     var dirtyHand = new ui.ImageView({
       superview: this,
-      x: 116,
+      x: 100,
       y: 284,
       width: 241,
       height: 265,
@@ -251,7 +274,7 @@ exports = Class(ui.View, function (supr) {
 
     for (var i = 1; i <= 9; i++) {
       dirts[i-1] = new ui.ImageView({
-        superview: this,
+        superview: dirtyHand,
         height: 24,
         width: 24,
         visible: false,
@@ -260,42 +283,42 @@ exports = Class(ui.View, function (supr) {
     }
 
     dirts[0].updateOpts({
-      x: 217, y: 302
+      x: 217 - 116, y: 302 - 284
     });
 
     dirts[1].updateOpts({
-      x: 263, y: 284
+      x: 263 - 116, y: 284 - 284 
     });
 
     dirts[2].updateOpts({
-      x: 292, y: 300
+      x: 292 - 116, y: 300 - 284 
     });
 
     dirts[3].updateOpts({
-      x: 336, y: 344
+      x: 336 - 116, y: 344 - 284 
     });
 
     dirts[4].updateOpts({
-      x: 230, y: 369,
+      x: 230 - 116, y: 369 - 284,
       width: 32, height: 47
     });
 
     dirts[5].updateOpts({
-      x: 270, y: 374
+      x: 270 - 116, y: 374 - 284 
     });
 
     dirts[6].updateOpts({
       width: 26, height: 44,
-      x: 294, y: 392
+      x: 294 - 116, y: 392 - 284
     });
 
     dirts[7].updateOpts({
-      x: 138, y: 429
+      x: 138 - 116, y: 429 - 284 
     });
 
     dirts[8].updateOpts({
       width: 58, height: 53,
-      x: 192, y: 453
+      x: 192 - 116, y: 453 - 284 
     });
 
     var noDirt = function() {
@@ -311,6 +334,7 @@ exports = Class(ui.View, function (supr) {
     dirts.forEach(function(dirt) {
       dirt.onInputMove = function(evt, point) {
         dirt.style.opacity = Math.max(dirt.style.opacity - .05, 0);
+        if (dirt.style.opacity < 0.2) dirt.style.opacity = 0;
         if (noDirt()) {
           if (timer.timerCount < 20) {
             self.app.showNotification("You cleaned too fast! You should take at least 20 seconds", "error");
@@ -360,10 +384,5 @@ exports = Class(ui.View, function (supr) {
         y: point.y - 10
       });
     };
-
-  };
-
-  this.onInputSelect = function() {
-    self.app.goBack();
   };
 });

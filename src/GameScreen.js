@@ -15,7 +15,7 @@ exports = Class(ui.ImageView, function (supr) {
     self.app = app;
 
     opts = {
-      image: "resources/images/GameScreen.png"
+      image: "resources/images/kitchen.jpg"
     };
 
     supr(this, 'init', [opts]);
@@ -25,65 +25,61 @@ exports = Class(ui.ImageView, function (supr) {
     var servingStation = new ui.widget.ButtonView({
       superview: this,
       x: 0,
-      y: 120,
+      y: device.height - 60,
       width: 200,
-      height: 320,
-      backgroundColor: '#fee187',
+      height: 60,
+      backgroundColor: 'rgba(0,0,0,0)',
+      image: "resources/images/arrow.png",
       title: "Serving Station",
       text: {
-        size: 24
+        horizontalAlign: "right",
+        padding: 10,
+        size: 18,
+        color: "white",
       }
     });
 
     var handwashingStation = new ui.widget.ButtonView({
       superview: this,
-      x: device.width - 150,
-      y: 120,
+      x: 266,
+      y: 216,
       width: 150,
-      height: 120,
-      backgroundColor: '#3170b9',
+      height: 88,
+      backgroundColor: 'rgba(0,0,0,0)',
       title: "Handwashing Station",
       text: {
-        size: 24
+        size: 18,
+        verticalAlign: "bottom",
+        padding: 4
       }
     });
 
     var cookingStation = new ui.widget.ButtonView({
       superview: this,
-      x: device.width - 150,
-      y: 120 + 120,
-      width: 150,
-      height: 320 - 120,
-      backgroundColor: '#599b3e',
+      x: device.width - 200,
+      y: 260,
+      width: 200,
+      height: 90,
+      backgroundColor: 'rgba(0,0,0,0)',
       title: "Cooking Station",
       text: {
-        size: 24
+        size: 18,
+        verticalAlign: "bottom",
+        padding: 4
       }
     });
 
     var coolerStation = new ui.widget.ButtonView({
       superview: this,
-      x: 350,
-      y: device.height - 100,
-      width: 300,
-      height: 100,
-      backgroundColor: '#878787',
+      x: 0,
+      y: 100,
+      width: 150,
+      height: 280,
+      backgroundColor: 'rgba(0,0,0,0)',
       title: "Cooler",
       text: {
-        size: 24
-      }
-    });
-
-    var foodSupplies = new ui.widget.ButtonView({
-      superview: this,
-      x: 350 - 150,
-      y: device.height - 60,
-      width: 100,
-      height: 60,
-      backgroundColor: '#878787',
-      title: "Food\nSupplies",
-      text: {
-        size: 24
+        size: 18,
+        verticalAlign: "top"
       }
     });
 
