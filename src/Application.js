@@ -22,6 +22,7 @@ import src.CookingScreen as CookingScreen;
 import src.CoolerScreen as CoolerScreen;
 import src.StepScreen as StepScreen;
 import src.Notification as Notification;
+import src.Status as Status;
 
 exports = Class(GC.Application, function () {
   var self = this;
@@ -47,6 +48,11 @@ exports = Class(GC.Application, function () {
     var notification = new Notification({
       superview: this
     });
+
+    var statusBar = new Status({
+      superview: this
+    });
+    statusBar.style.visible = false;
 
     self.mouseHand = new ImageView({
       superview: this,
@@ -79,14 +85,21 @@ exports = Class(GC.Application, function () {
 
     self.goToScreen = function(screenName) {
       rootView.push(screens[screenName]);
+
+      statusBar.style.visible =  (screenName != 'title')
     }
 
     self.goBack = function() {
-      if (rootView.getStack().length > 1) rootView.pop();
+      var viewLength = rootView.getStack().length;
+      if (viewLength > 1) rootView.pop();
+
+      if ((viewLength - 1) <= 1)
+        statusBar.style.visible = false;
     }
 
-    self.showStepScreen = function(text) {
-      stepScreen.show(text);
+    self.showStepScreen = function() {
+      console.debug(rootView.getCurrentView());
+      stepScreen.show(rootView.getCurrentView().helpText());
     }
 
     self.showNotification = function(text, type) {
