@@ -33,8 +33,13 @@ exports = Class(ui.View, function (supr) {
 
     if (this.timer) return;
     this.timer = setInterval(function() {
-      self.timerText.updateOpts({text: (++self.timerCount) + "s"});
+      self.setText(++self.timerCount);
     }, 600)
+  }
+
+  this.setText = function(count) {
+    var temp = Math.round(Math.sqrt(count) * 3 + 130);
+    this.timerText.updateOpts({text: temp + "°F"});
   }
 
   this.stop = function() {
