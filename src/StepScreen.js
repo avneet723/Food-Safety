@@ -24,9 +24,9 @@ exports = Class(ui.View, function (supr) {
 
     this.popup = new ui.TextView({
       superview: this,
-      x: 150, y: 150,
-      width: device.screen.width - 300,
-      height: device.screen.height - 300,
+      x: 100, y: 100,
+      width: device.screen.width - 200,
+      height: device.screen.height - 200,
       backgroundColor: "rgba(0, 0, 0, 0.7)",
       color: "white",
       horizontalAlign: "left",

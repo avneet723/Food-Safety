@@ -28,7 +28,8 @@ exports = Class(ui.ImageView, function (supr) {
       x: 310, y: 130,
       width: 180, height: 92,
       uncookedImage: "resources/images/stoveTopLeftUncooked.png",
-      cookedImage: "resources/images/stoveTopLeftCooked.png"
+      cookedImage: "resources/images/stoveTopLeftCooked.png",
+      minTemp: 145, side: "top"
     })
 
     var chicken = new src.FoodItem({
@@ -36,7 +37,8 @@ exports = Class(ui.ImageView, function (supr) {
       x: 560, y: 130,
       width: 180, height: 92,
       uncookedImage: "resources/images/stoveTopRightUncooked.png",
-      cookedImage: "resources/images/stoveTopRightCooked.png"
+      cookedImage: "resources/images/stoveTopRightCooked.png",
+      minTemp: 165, side: "top"
     })
 
     var fish = new src.FoodItem({
@@ -44,7 +46,8 @@ exports = Class(ui.ImageView, function (supr) {
       x: 325, y: 250,
       width: 140, height: 92,
       uncookedImage: "resources/images/stoveBottomLeftUncooked.png",
-      cookedImage: "resources/images/stoveBottomLeftCooked.png"
+      cookedImage: "resources/images/stoveBottomLeftCooked.png",
+      minTemp: 145, side: "bottom"
     })
 
     var burger = new src.FoodItem ({
@@ -52,13 +55,27 @@ exports = Class(ui.ImageView, function (supr) {
       x: 584, y: 234,
       width: 160, height: 110,
       uncookedImage: "resources/images/stoveBottomRightUncooked.png",
-      cookedImage: "resources/images/stoveBottomRightCooked.png"
+      cookedImage: "resources/images/stoveBottomRightCooked.png",
+      minTemp: 155, side: "bottom"
     })
   }
 
   this.helpText = function() {
     return "Note: Please make sure you have gloves on.\n" +
-      "You need to make sure the food items reach their minimum internal temperature for at least 15 seconds.\n" +
-      "Use your themometer to take the temperature."
+    "1. Make sure that the food items reach their min temperature for at least 15 seconds\n" + 
+   "reduce the risk of cross contamination\n" +
+   "Items\tMin Temp (F)\tTime (seconds)\n" + 
+   "Beef, Pork, Seafood, Eggs\t145\t15 (or 4 minutes)\n" + 
+   "Ground Beef/pork, Sausage\t155\t15\n" + 
+   "Poultry - chicken, duck, turkey, etc.\t165\t15\n" +
+   "Casseroles\t165\t15\n" +
+   "Note: Roasts are larger product, you must make sure it stays at the correct temperature for 4 minutes.\n" +
+"2. Cook the item until it looks done and then take temperature.\n" +
+"3. Click on the item to start the timer and obtain temperature.\n" +
+"4. Click on the item again to stop taking the temperature.\n" +
+"5. Once done, click on \"Serve\" to remove it from the grill.\n" +
+"Reheating:\n" +
+"* Reheat to at least a minimum internal temperature of 165 Â°F for 15 seconds within 2 hours\n" +
+"* Reheating is only allowed once so that food doesnâ€™t go through the danger zone too many times"
   }
 });

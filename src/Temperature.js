@@ -8,10 +8,11 @@ exports = Class(ui.View, function (supr) {
   this.init = function (opts) {
     this.timerCount = 0;
 
-    supr(this, 'init', [opts]);
-  };
+    this.startTemp = opts.startTemp;
+    this.endTemp = opts.endTemp;
 
-  this.buildView = function() {
+    supr(this, 'init', [opts]);
+
     var background = new ui.ImageView({
       superview: this,
       width: this.style.width,
@@ -19,14 +20,13 @@ exports = Class(ui.View, function (supr) {
       image: "resources/images/timerCircle.png",
     });
 
-    this.timerText = new ui.TextView({
+    this.tempText = new ui.TextView({
       superview: this,
       width: this.style.width,
       height: this.style.height,
-      text: this.timerCount + "s",
       size: 35
     });
-  }
+  };
 
   this.start = function() {
     var self = this;
@@ -38,8 +38,11 @@ exports = Class(ui.View, function (supr) {
   }
 
   this.setText = function(count) {
-    var temp = Math.round(Math.sqrt(count) * 3 + 130);
-    this.timerText.updateOpts({text: temp + "°F"});
+    var temp = Math.round(Math.min(Math.sqrt(count) * 3 + this.startTemp, this.endTemp));
+    if (this.tempText.getText() != (temp + "°F")) {
+      this.tempText.setText(temp +  "°F");
+      if (this.onChange != null) this.onChange(temp);
+    }
   }
 
   this.stop = function() {
@@ -50,12 +53,11 @@ exports = Class(ui.View, function (supr) {
   this.reset = function() {
     this.stop();
     this.timerCount = 0;
-    this.timerText.updateOpts({text: 0 + "s"});
+    this.setText(0);
   }
 
   this.restart = function() {
     this.reset();
     this.start();
   }
-
 });
