@@ -9,9 +9,7 @@ exports = Class(ui.View, function (supr) {
     this.timerCount = 0;
 
     supr(this, 'init', [opts]);
-  };
 
-  this.buildView = function() {
     var background = new ui.ImageView({
       superview: this,
       width: this.style.width,
@@ -26,7 +24,7 @@ exports = Class(ui.View, function (supr) {
       text: this.timerCount + "s",
       size: 35
     });
-  }
+  };
 
   this.start = function() {
     var self = this;

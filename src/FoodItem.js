@@ -2,6 +2,7 @@
 import ui.View;
 import ui.ImageView;
 import ui.TextView;
+import ui.widget.ButtonView;
 import src.Timer;
 import src.Temperature;
 
@@ -11,6 +12,8 @@ exports = Class(ui.ImageView, function (supr) {
     this.cooked = opts.cookedImage;
     this.minTemp = opts.minTemp;
     this.bottom = opts.side == "bottom";
+
+    this.isCooked = false;
 
     supr(this, 'init', [opts]);
   }
@@ -48,26 +51,61 @@ exports = Class(ui.ImageView, function (supr) {
     })
 
     this.temp.onChange = function(temp) {
-      if (temp >= self.minTemp) {
+      if (!self.isCooked && (temp >= self.minTemp)) {
+        self.isCooked = true;
         cookedImage.style.visible = true;
         uncookedImage.style.visible = false;
+
+        if (self.temp.style.visible) {
+          self.timer.style.visible = true;
+          self.timer.start();
+        }
+      }
+    }
+
+    this.serveButton = new ui.widget.ButtonView({
+      superview: this,
+      x: 45, y: 30,
+      width: 40, height: 25,
+      title: "Serve",
+      backgroundColor: "rgba(255,255,255,0.5)",
+      visible: false
+    })
+
+    this.serveButton.onInputSelect = function() {
+      if (self.timer.timerCount < 15) {
+        GC.app.showNotification("You must temp for at least 15 seconds", "error");
+      } else {
+        self.style.visible = false;
       }
     }
 
     this.temp.start();
   }
 
-  this.onInputSelect = function() {
-    if (this.timer.style.visible) {
-      this.timer.reset();
+  this.hideInfoStats = function() {
+    this.timer.reset();
 
-      this.timer.style.visible = false;
-      this.temp.style.visible = false;
-    } else {
+    this.timer.style.visible = false;
+    this.temp.style.visible = false;
+    this.serveButton.style.visible = false;
+  }
+
+  this.showInfoStats = function() {
+    this.temp.style.visible = true;
+    this.serveButton.style.visible = true;
+
+    if (this.isCooked) {
       this.timer.style.visible = true;
-      this.temp.style.visible = true;
-
       this.timer.start();
+    }
+  }
+
+  this.toggleInfoStats = function() {
+    if (this.temp.style.visible) {
+      this.hideInfoStats();
+    } else {
+      this.showInfoStats();
     }
   }
 });

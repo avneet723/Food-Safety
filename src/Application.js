@@ -54,22 +54,6 @@ exports = Class(GC.Application, function () {
     });
     statusBar.style.visible = false;
 
-    self.mouseHand = new ImageView({
-      superview: this,
-      width: 90.8,
-      height: 100,
-      image: "resources/images/mouseHand.png",
-      canHandleEvents: false
-    })
-
-    this.onInputMove = function(evt, point) {
-      //console.debug(point.x + ", " + point.y);
-      self.mouseHand.updateOpts({
-        x: point.x - self.mouseHand.style.width / 3,
-        y: point.y - 10
-      });
-    };
-
     var screens = {
       title: new TitleScreen(self),
       game: new GameScreen(self),

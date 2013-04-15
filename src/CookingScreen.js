@@ -32,6 +32,13 @@ exports = Class(ui.ImageView, function (supr) {
       minTemp: 145, side: "top"
     })
 
+    beef.onInputSelect = function() {
+      beef.toggleInfoStats();
+      chicken.hideInfoStats();
+      fish.hideInfoStats();
+      burger.hideInfoStats();
+    }
+
     var chicken = new src.FoodItem({
       superview: this,
       x: 560, y: 130,
@@ -40,6 +47,13 @@ exports = Class(ui.ImageView, function (supr) {
       cookedImage: "resources/images/stoveTopRightCooked.png",
       minTemp: 165, side: "top"
     })
+
+    chicken.onInputSelect = function() {
+      beef.hideInfoStats();
+      chicken.toggleInfoStats();
+      fish.hideInfoStats();
+      burger.hideInfoStats();
+    }
 
     var fish = new src.FoodItem({
       superview: this,
@@ -50,6 +64,13 @@ exports = Class(ui.ImageView, function (supr) {
       minTemp: 145, side: "bottom"
     })
 
+    fish.onInputSelect = function() {
+      beef.hideInfoStats();
+      chicken.hideInfoStats();
+      fish.toggleInfoStats();
+      burger.hideInfoStats();
+    }
+
     var burger = new src.FoodItem ({
       superview: this,
       x: 584, y: 234,
@@ -57,6 +78,30 @@ exports = Class(ui.ImageView, function (supr) {
       uncookedImage: "resources/images/stoveBottomRightUncooked.png",
       cookedImage: "resources/images/stoveBottomRightCooked.png",
       minTemp: 155, side: "bottom"
+    })
+
+    burger.onInputSelect = function() {
+      beef.hideInfoStats();
+      chicken.hideInfoStats();
+      fish.hideInfoStats();
+      burger.toggleInfoStats();
+    }
+
+    this.mouseHand = new ui.ImageView({
+      superview: this,
+      width: 90.8,
+      height: 100,
+      image: "resources/images/thermometer.png",
+      canHandleEvents: false
+    })
+
+  }
+
+  this.onInputMove = function(evt, point) {
+    //console.debug(point.x + ", " + point.y);
+    this.mouseHand.updateOpts({
+      x: point.x - this.mouseHand.style.width / 3,
+      y: point.y - 10
     })
   }
 
