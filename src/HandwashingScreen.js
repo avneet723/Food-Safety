@@ -12,10 +12,7 @@ import ui.widget.ButtonView;
 import src.Timer as Timer;
  
 exports = Class(ui.View, function (supr) {
-  var self = this;
-
-  this.init = function (app) {
-    self.app = app;
+  this.init = function () {
     supr(this, 'init');
   };
 
@@ -55,7 +52,7 @@ exports = Class(ui.View, function (supr) {
       backgroundColor: "black",
       text: { color: "white"}
     }).onInputSelect = function() {
-      self.app.showStepScreen(
+      GC.app.showStepScreen(
         "1. Check for paper towel\n" +
         "2. Turn on the water\n" +
         "3. Get soap\n" +
@@ -85,9 +82,9 @@ exports = Class(ui.View, function (supr) {
         scrubHands = false;
         rinseHands = true;
       } else if (dirt) {
-        self.app.showNotification("Please remove all dirt before rinsing hands.", "error");
+        GC.app.showNotification("Please remove all dirt before rinsing hands.", "error");
       } else {
-        self.app.showNotification("You already rinsed your hands.", "error");
+        GC.app.showNotification("You already rinsed your hands.", "error");
       }
     }
 
@@ -105,7 +102,7 @@ exports = Class(ui.View, function (supr) {
         waterStream.style.visible = !waterStream.style.visible;
         waterOn = !waterOn;
       } else {
-        self.app.showNotification("Don't touch the faucet when you are scrubbing your hands", "error");
+        GC.app.showNotification("Don't touch the faucet when you are scrubbing your hands", "error");
       }
     };
 
@@ -146,13 +143,13 @@ exports = Class(ui.View, function (supr) {
         rinseHands = false;
         glovesOn = true;
 
-      self.app.showStepScreen(
+      GC.app.showStepScreen(
           "You have successfully washed your hands.\nPlease proceed to the next station."
       );
       } else if (paperTowelInHand && waterOn) {
-        self.app.showNotification("Please turn off water with paper towel before putting gloves on.", "error");
+        GC.app.showNotification("Please turn off water with paper towel before putting gloves on.", "error");
       } else {
-        self.app.showNotification("You need to wash your hands before putting on gloves.", "error");
+        GC.app.showNotification("You need to wash your hands before putting on gloves.", "error");
       }
     }
 

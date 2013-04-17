@@ -9,11 +9,7 @@ import ui.TextView;
 import ui.widget.ButtonView;
  
 exports = Class(ui.ImageView, function (supr) {
-  var self = this;
-
-  this.init = function (app) {
-    self.app = app;
-
+  this.init = function () {
     opts = {
       image: "resources/images/kitchen.jpg"
     };
@@ -85,26 +81,26 @@ exports = Class(ui.ImageView, function (supr) {
 
     servingStation.onInputSelect = function(evt) {
       evt.cancel();
-      self.app.goToScreen('serving');
+      GC.app.goToScreen('serving');
     };
 
     handwashingStation.onInputSelect = function(evt) {
       evt.cancel();
-      self.app.goToScreen('handwashing');
+      GC.app.goToScreen('handwashing');
     };
 
     cookingStation.onInputSelect = function(evt) {
       evt.cancel();
-      self.app.goToScreen('cooking');
+      GC.app.goToScreen('cooking');
     };
 
     coolerStation.onInputSelect = function(evt) {
       evt.cancel();
-      self.app.goToScreen('cooler');
+      GC.app.goToScreen('cooler');
     };
   };
 
   this.onInputSelect = function() {
-    self.app.goBack();
+    GC.app.goBack();
   }
 });

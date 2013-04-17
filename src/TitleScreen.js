@@ -4,11 +4,7 @@ import ui.ImageView;
 import ui.widget.ButtonView;
 
 exports = Class(ui.ImageView, function (supr) {
-  var self = this;
-
-  this.init = function (app) {
-    self.app = app;
-
+  this.init = function () {
     opts = {
       x: 0,
       y: 0,
@@ -60,19 +56,19 @@ exports = Class(ui.ImageView, function (supr) {
     });
 
     startButton.onInputSelect = function() {
-      self.app.goToScreen('game');
+      GC.app.goToScreen('game');
     };
 
     helpButton.onInputSelect = function() {
-      self.app.goToScreen('help');
+      GC.app.goToScreen('help');
     };
 
     aboutButton.onInputSelect = function() {
-      self.app.goToScreen('about');
+      GC.app.goToScreen('about');
     };
 
     exitButton.onInputSelect = function() {
-      self.app.goToScreen('exit');
+      GC.app.goToScreen('exit');
     };
   };
 });

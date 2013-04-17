@@ -16,9 +16,7 @@ exports = Class(ui.ImageView, function (supr) {
     this.isCooked = false;
 
     supr(this, 'init', [opts]);
-  }
 
-  this.buildView = function() {
     var self = this;
 
     var uncookedImage = new ui.ImageView({
@@ -70,15 +68,7 @@ exports = Class(ui.ImageView, function (supr) {
       title: "Serve",
       backgroundColor: "rgba(255,255,255,0.5)",
       visible: false
-    })
-
-    this.serveButton.onInputSelect = function() {
-      if (self.timer.timerCount < 15) {
-        GC.app.showNotification("You must temp for at least 15 seconds", "error");
-      } else {
-        self.style.visible = false;
-      }
-    }
+    });
 
     this.temp.start();
   }

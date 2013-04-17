@@ -10,11 +10,7 @@ import ui.ImageView;
 import ui.TextView;
  
 exports = Class(ui.TextView, function (supr) {
-  var self = this;
-
-  this.init = function (app) {
-    self.app = app;
-
+  this.init = function () {
     opts = {
       text: "Help Screen", 
       background: '#fff'
@@ -24,6 +20,6 @@ exports = Class(ui.TextView, function (supr) {
   };
 
   this.onInputSelect = function() {
-    self.app.goBack();
+    GC.app.goBack();
   };
 });

@@ -6,95 +6,116 @@ import animate;
 import ui.View;
 import ui.ImageView;
 import ui.TextView;
+import ui.widget.ButtonView;
 
 import src.FoodItem;
  
 exports = Class(ui.ImageView, function (supr) {
-  var self = this;
-
-  this.init = function (app) {
-    self.app = app;
-
+  this.init = function () {
     opts = {
       image: "resources/images/stove.png"
     };
 
     supr(this, 'init', [opts]);
-  };
+  }
 
   this.buildView = function() {
-    var beef = new src.FoodItem({
+    var dirty = false;
+
+    var foodItems = [];
+    foodItems[0] = new src.FoodItem({
       superview: this,
       x: 310, y: 130,
       width: 180, height: 92,
       uncookedImage: "resources/images/stoveTopLeftUncooked.png",
       cookedImage: "resources/images/stoveTopLeftCooked.png",
       minTemp: 145, side: "top"
-    })
+    });
 
-    beef.onInputSelect = function() {
-      beef.toggleInfoStats();
-      chicken.hideInfoStats();
-      fish.hideInfoStats();
-      burger.hideInfoStats();
-    }
-
-    var chicken = new src.FoodItem({
+    foodItems[1] = new src.FoodItem({
       superview: this,
       x: 560, y: 130,
       width: 180, height: 92,
       uncookedImage: "resources/images/stoveTopRightUncooked.png",
       cookedImage: "resources/images/stoveTopRightCooked.png",
       minTemp: 165, side: "top"
-    })
+    });
 
-    chicken.onInputSelect = function() {
-      beef.hideInfoStats();
-      chicken.toggleInfoStats();
-      fish.hideInfoStats();
-      burger.hideInfoStats();
-    }
-
-    var fish = new src.FoodItem({
+    foodItems[2] = new src.FoodItem({
       superview: this,
       x: 325, y: 250,
       width: 140, height: 92,
       uncookedImage: "resources/images/stoveBottomLeftUncooked.png",
       cookedImage: "resources/images/stoveBottomLeftCooked.png",
       minTemp: 145, side: "bottom"
-    })
+    });
 
-    fish.onInputSelect = function() {
-      beef.hideInfoStats();
-      chicken.hideInfoStats();
-      fish.toggleInfoStats();
-      burger.hideInfoStats();
-    }
-
-    var burger = new src.FoodItem ({
+    foodItems[3] = new src.FoodItem ({
       superview: this,
       x: 584, y: 234,
       width: 160, height: 110,
       uncookedImage: "resources/images/stoveBottomRightUncooked.png",
       cookedImage: "resources/images/stoveBottomRightCooked.png",
       minTemp: 155, side: "bottom"
-    })
+    });
 
-    burger.onInputSelect = function() {
-      beef.hideInfoStats();
-      chicken.hideInfoStats();
-      fish.hideInfoStats();
-      burger.toggleInfoStats();
+    var self = this;
+
+    foodItems.forEach(function(foodItem) {
+      foodItem.onInputSelect = function() {
+        if (!foodItem.temp.style.visible) {
+          if (dirty) {
+            GC.app.showNotification("Please wipe your thermometer before using it on another item", "error");
+            return;
+          }
+
+          foodItems.forEach(function(otherItem) {
+            otherItem.hideInfoStats();
+          });
+          foodItem.showInfoStats();
+
+          dirty = true;
+          self.mouseHand.setImage("resources/images/thermometerDirty.png");
+        }
+      }
+
+      foodItem.serveButton.onInputSelect = function() {
+        if (foodItem.timer.timerCount < 15) {
+          GC.app.showNotification("You must temp for at least 15 seconds", "error");
+        } else {
+          foodItem.style.visible = false;
+
+          for (var i = 0; i < foodItems.length; i++) {
+            if (foodItems[i].style.visible) return;
+          }
+
+          GC.app.showEndScreen();
+        }
+      }
+    });
+
+    var wipeButton = new ui.widget.ButtonView({
+      superview: this,
+      x: 0, y: 415,
+      width: 88, height: 85,
+      backgroundColor: "rgba(0,0,0,0)"
+    });
+
+    wipeButton.onInputSelect = function() {
+      foodItems.forEach(function(foodItem) {
+        foodItem.hideInfoStats();
+      });
+      dirty = false;
+      self.mouseHand.setImage("resources/images/thermometerClean.png");
     }
 
     this.mouseHand = new ui.ImageView({
       superview: this,
       width: 90.8,
       height: 100,
-      image: "resources/images/thermometer.png",
+      image: "resources/images/thermometerClean.png",
       canHandleEvents: false
-    })
-
+    });
   }
 
   this.onInputMove = function(evt, point) {
@@ -102,11 +123,10 @@ exports = Class(ui.ImageView, function (supr) {
     this.mouseHand.updateOpts({
       x: point.x - this.mouseHand.style.width / 3,
       y: point.y - 10
-    })
+    });
   }
 
-  this.helpText = function() {
-    return "Note: Please make sure you have gloves on.\n" +
+  this.helpText = "Note: Please make sure you have gloves on.\n" +
     "1. Make sure that the food items reach their min temperature for at least 15 seconds\n" + 
    "reduce the risk of cross contamination\n" +
    "Items\tMin Temp (F)\tTime (seconds)\n" + 
@@ -122,5 +142,6 @@ exports = Class(ui.ImageView, function (supr) {
 "Reheating:\n" +
 "* Reheat to at least a minimum internal temperature of 165 Â°F for 15 seconds within 2 hours\n" +
 "* Reheating is only allowed once so that food doesnâ€™t go through the danger zone too many times"
-  }
+
+  this.endText = "You have successfully cooked the food.\nPlease proceed to the next station."
 });

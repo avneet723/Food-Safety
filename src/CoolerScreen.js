@@ -8,11 +8,7 @@ import ui.ImageView;
 import ui.TextView;
  
 exports = Class(ui.ImageView, function (supr) {
-  var self = this;
-
-  this.init = function (app) {
-    self.app = app;
-
+  this.init = function () {
     opts = {
       image: "resources/images/CoolerScreen.png"
     };
@@ -21,6 +17,6 @@ exports = Class(ui.ImageView, function (supr) {
   };
 
   this.onInputSelect = function() {
-    self.app.goBack();
+    GC.app.goBack();
   };
 });

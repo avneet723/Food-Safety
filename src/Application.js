@@ -25,13 +25,11 @@ import src.Notification as Notification;
 import src.Status as Status;
 
 exports = Class(GC.Application, function () {
-  var self = this;
-
   this.initUI = function () {
     this.view.style.backgroundColor = '#30B040';
 
 		//A StackView to the root of the scene graph 
-    var rootView = new StackView({
+    this.rootView = new StackView({
       superview: this,
       x: 0,
       y: 0,
@@ -41,58 +39,65 @@ exports = Class(GC.Application, function () {
       backgroundColor: '#37B34A'
     });
 
-    var stepScreen = new StepScreen({
+    this.stepScreen = new StepScreen({
       superview: this
     });
 
-    var notification = new Notification({
+    this.endScreen = new StepScreen({
       superview: this
     });
 
-    var statusBar = new Status({
+    this.notification = new Notification({
       superview: this
     });
-    statusBar.style.visible = false;
 
-    var screens = {
-      title: new TitleScreen(self),
-      game: new GameScreen(self),
-      about: new AboutScreen(self),
-      help: new HelpScreen(self),
-      exit: new ExitScreen(self),
+    this.statusBar = new Status({
+      superview: this
+    });
+    this.statusBar.style.visible = false;
+               
+    this.screens = {
+      title: new TitleScreen(),
+      game: new GameScreen(),
+      about: new AboutScreen(),
+      help: new HelpScreen(),
+      exit: new ExitScreen(),
 
-      serving: new ServingScreen(self),
-      handwashing: new HandwashingScreen(self),
-      cooking: new CookingScreen(self),
-      cooler: new CoolerScreen(self)
+      serving: new ServingScreen(),
+      handwashing: new HandwashingScreen(),
+      cooking: new CookingScreen(),
+      cooler: new CoolerScreen()
     };
 
-    self.goToScreen = function(screenName) {
-      rootView.push(screens[screenName]);
+    this.goToScreen('title');
+    //this.goToScreen('cooking');
+	}
 
-      statusBar.style.visible =  (screenName != 'title')
-    }
+  this.goToScreen = function(screenName) {
+    this.rootView.push(this.screens[screenName]);
 
-    self.goBack = function() {
-      var viewLength = rootView.getStack().length;
-      if (viewLength > 1) rootView.pop();
+    this.statusBar.style.visible =  (screenName != 'title')
+  }
 
-      if ((viewLength - 1) <= 1)
-        statusBar.style.visible = false;
-    }
+  this.goBack = function() {
+    var viewLength = this.rootView.getStack().length;
+    if (viewLength > 1) this.rootView.pop();
 
-    self.showStepScreen = function() {
-      console.debug(rootView.getCurrentView());
-      stepScreen.show(rootView.getCurrentView().helpText());
-    }
+    if ((viewLength - 1) <= 1)
+      this.statusBar.style.visible = false;
+  }
 
-    self.showNotification = function(text, type) {
-      notification.show(text, type);
-    }
+  this.showStepScreen = function() {
+    this.stepScreen.show(this.rootView.getCurrentView().helpText);
+  }
 
-    //self.goToScreen('title');
-    self.goToScreen('cooking');
-	};
-	
-	this.launchUI = function () {};
+  this.showEndScreen = function() {
+    this.endScreen.show(this.rootView.getCurrentView().endText);
+  }
+
+  this.showNotification = function(text, type) {
+    this.notification.show(text, type);
+  }
+
+  this.launchUI = function () {};
 });
