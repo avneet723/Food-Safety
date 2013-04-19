@@ -69,8 +69,8 @@ exports = Class(GC.Application, function () {
       cooler: new CoolerScreen()
     };
 
-    this.goToScreen('title');
-    //this.goToScreen('cooking');
+    //this.goToScreen('title');
+    this.goToScreen('serving');
 	}
 
   this.goToScreen = function(screenName) {
