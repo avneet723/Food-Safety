@@ -9,6 +9,7 @@ import ui.TextView;
 import ui.widget.ButtonView;
 
 import src.FoodItem;
+import src.MouseHand;
  
 exports = Class(ui.ImageView, function (supr) {
   this.init = function () {
@@ -109,21 +110,15 @@ exports = Class(ui.ImageView, function (supr) {
       self.mouseHand.setImage("resources/images/thermometerClean.png");
     }
 
-    this.mouseHand = new ui.ImageView({
+    this.mouseHand = new src.mouseHand({
       superview: this,
-      width: 90.8,
-      height: 100,
       image: "resources/images/thermometerClean.png",
-      canHandleEvents: false
     });
   }
 
   this.onInputMove = function(evt, point) {
     //console.debug(point.x + ", " + point.y);
-    this.mouseHand.updateOpts({
-      x: point.x - this.mouseHand.style.width / 3,
-      y: point.y - 10
-    });
+    this.mouseHand.update(point);
   }
 
   this.helpText = "Note: Please make sure you have gloves on.\n" +

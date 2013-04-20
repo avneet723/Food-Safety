@@ -10,23 +10,25 @@ import ui.TextView;
 import ui.widget.ButtonView;
 
 import src.Timer as Timer;
+import src.MouseHand;
  
 exports = Class(ui.View, function (supr) {
   this.init = function () {
     supr(this, 'init');
   };
 
-  this.helpText = function() {
-    return "1. Check for paper towel\n" +
-      "2. Turn on the water\n" +
-      "3. Get soap\n" +
-      "4. Scrub hands to remove dirt for at least 20 sec.\n" +
-      "5. Rinse your hands\n" +
-      "6. Dry your hands\n" +
-      "7. Put on gloves\n"
-  }
+  this.helpText = 
+  "1. Check for paper towel\n" +
+  "2. Turn on the water\n" +
+  "3. Get soap\n" +
+  "4. Scrub hands to remove dirt for at least 20 sec.\n" +
+  "5. Rinse your hands\n" +
+  "6. Dry your hands\n" +
+  "7. Put on gloves\n";
 
   this.buildView = function() {
+    var self = this;
+
     var initial = true;
     var paperTowelOut = false;
     var dirt = true;
@@ -163,12 +165,17 @@ exports = Class(ui.View, function (supr) {
       visible: false
     });
 
+    this.mouseHand = new src.MouseHand({
+      superview: this,
+      image: "resources/images/mouseHand.png"
+    });
+
     soapButton.onInputSelect = function() {
       if (waterOn && paperTowelOut && !(scrubHands || rinseHands || glovesOn)) {
         dirtyHand.updateOpts({visible: true});
         hoverHand.updateOpts({visible: true});
 
-        self.app.mouseHand.updateOpts({visible: false});
+        self.mouseHand.style.visible = false;
         timer.updateOpts({visible: true});
         timer.start();
 
@@ -179,9 +186,9 @@ exports = Class(ui.View, function (supr) {
         initial = false;
         scrubHands = true;
       } else if (scrubHands || rinseHands || glovesOn) {
-        self.app.showNotification("You already applied the soap", "error");
+        GC.app.showNotification("You already applied the soap", "error");
       } else {
-        self.app.showNotification("Make sure the water is turned on and the paper towel is out", "error");
+        GC.app.showNotification("Make sure the water is turned on and the paper towel is out", "error");
       }
     };
 
@@ -226,7 +233,7 @@ exports = Class(ui.View, function (supr) {
       if (dispenser.isPlaying) return;
 
       if (scrubHands) {
-        self.app.showNotification("Your hands have not been scrubbed", "error");
+        GC.app.showNotification("Your hands have not been scrubbed", "error");
         return;
       }
 
@@ -328,7 +335,7 @@ exports = Class(ui.View, function (supr) {
         if (dirt.style.opacity < 0.2) dirt.style.opacity = 0;
         if (noDirt()) {
           if (timer.timerCount < 20) {
-            self.app.showNotification("You cleaned too fast! You should take at least 20 seconds", "error");
+            GC.app.showNotification("You cleaned too fast! You should take at least 20 seconds", "error");
             dirts.forEach(function(dirt) {
               dirt.updateOpts({opacity: 1});
             });
@@ -370,6 +377,8 @@ exports = Class(ui.View, function (supr) {
     });
 
     this.onInputMove = function(evt, point) {
+      this.mouseHand.update(point);
+
       hoverHand.updateOpts({
         x: point.x - hoverHand.style.width / 3,
         y: point.y - 10
