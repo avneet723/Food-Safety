@@ -30,7 +30,6 @@ exports = Class(ui.ImageView, function (supr) {
       temp: 38,
     });
 
-
     servingFoodItems[1] = new src.ServingFoodItem({
       superview: this,
       x: 476, y: 178,
@@ -95,6 +94,10 @@ exports = Class(ui.ImageView, function (supr) {
       width: 94, height: 100,
     });
 
+    tempLog.onInputSelect = function() {
+      tempLogScreen.style.visible = true;
+    }
+
     var clock = new src.TextImageView({
       superview: this,
       x: 340, y: 42,
@@ -106,7 +109,49 @@ exports = Class(ui.ImageView, function (supr) {
         size: 34,
         fontFamily: "Helvetica",
       }
-    })
+    });
+
+    var tempLogScreen = new ui.ImageView({
+      superview: this,
+      width: 800, height: 600,
+      image: "resources/images/TempLog_Table.png",
+      visible: false
+    });
+
+    var tempLogButtons = [];
+    var heatButtons = [];
+    var coolButtons = [];
+    var trashButtons = [];
+
+    for (var i = 0; i < 4; i++) {
+      tempLogButtons[0] = new ui.widget.ButtonView({
+        superview: tempLogScreen,
+        x: 670, y: 160 + (i * 95),
+        width: 97, height: 30,
+        images: {
+          up: "resources/images/Button-NotActive.png",
+          down: "resources/images/Button-Active.png"
+        }
+      });
+
+      heatButtons[0] = new ui.widget.ButtonView({
+        superview: tempLogScreen,
+        x: 262, y: 142 + (i * 95),
+        width: 60, height: 65
+      });
+
+      coolButtons[0] = new ui.widget.ButtonView({
+        superview: tempLogScreen,
+        x: 380, y: 142 + (i * 95),
+        width: 65, height: 65
+      });
+
+      trashButtons[0] = new ui.widget.ButtonView({
+        superview: tempLogScreen,
+        x: 520, y: 142 + (i * 95),
+        width: 55, height: 70
+      });
+    }
 
     this.mouseHand = new src.MouseHand({
       superview: this,
