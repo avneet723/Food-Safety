@@ -98,13 +98,15 @@ exports = Class(ui.ImageView, function (supr) {
       tempLogScreen.style.visible = true;
     }
 
+    // Clock not shown in game
     var clock = new src.TextImageView({
       superview: this,
       x: 340, y: 42,
       width: 150, height: 38,
       image: "resources/images/clock.png",
+      visible: false,
       text: {
-        text: "5:30 pm",
+        text: "2:00 pm",
         color: "#00afdc",
         size: 34,
         fontFamily: "Helvetica",
@@ -118,39 +120,126 @@ exports = Class(ui.ImageView, function (supr) {
       visible: false
     });
 
+    var closeButton = new ui.widget.ButtonView({
+      superview: tempLogScreen,
+      x: (800 - 80) / 2, y: 600 - 80,
+      width: 80, height: 30,
+      images: {
+        up: "resources/images/Close-Button-None.png",
+        down: "resources/images/Close-Button-Active.png",
+      }
+    });
+
+    closeButton.onInputSelect = function() {
+      tempLogScreen.style.visible = false;
+    }
+
     var tempLogButtons = [];
     var heatButtons = [];
     var coolButtons = [];
     var trashButtons = [];
 
     for (var i = 0; i < 4; i++) {
-      tempLogButtons[0] = new ui.widget.ButtonView({
+      tempLogButtons[i] = new ui.widget.ButtonView({
         superview: tempLogScreen,
         x: 670, y: 160 + (i * 95),
-        width: 97, height: 30,
+        width: 59, height: 30,
+
+        clickOnce: true,
         images: {
           up: "resources/images/Button-NotActive.png",
-          down: "resources/images/Button-Active.png"
+          disabled: "resources/images/Button-Active.png",
         }
       });
 
-      heatButtons[0] = new ui.widget.ButtonView({
+      var heatButton = new ui.widget.ButtonView({
         superview: tempLogScreen,
         x: 262, y: 142 + (i * 95),
-        width: 60, height: 65
+        width: 60, height: 65,
+        backgroundColor: "rgba(255, 255, 255, 0.6)"
       });
 
-      coolButtons[0] = new ui.widget.ButtonView({
+      var coolButton = new ui.widget.ButtonView({
         superview: tempLogScreen,
         x: 380, y: 142 + (i * 95),
-        width: 65, height: 65
+        width: 65, height: 65,
+        backgroundColor: "rgba(255, 255, 255, 0.6)"
       });
 
-      trashButtons[0] = new ui.widget.ButtonView({
+      var trashButton = new ui.widget.ButtonView({
         superview: tempLogScreen,
         x: 520, y: 142 + (i * 95),
-        width: 55, height: 70
+        width: 55, height: 70,
+        backgroundColor: "rgba(255, 255, 255, 0.6)"
       });
+
+      (function(heatButton, coolButton, trashButton) {
+        heatButton.onInputSelect = function() {
+          heatButton.style.visible = false;
+          coolButton.style.visible = true;
+          trashButton.style.visible = true;
+        }
+
+        coolButton.onInputSelect = function() {
+          heatButton.style.visible = true;
+          coolButton.style.visible = false;
+          trashButton.style.visible = true;
+        }
+
+        trashButton.onInputSelect = function() {
+          heatButton.style.visible = true;
+          coolButton.style.visible = true;
+          trashButton.style.visible = false;
+        }
+      })(heatButton, coolButton, trashButton);
+
+      heatButtons[i] = heatButton;
+      coolButtons[i] = coolButton;
+      trashButtons[i] = trashButton;
+    }
+
+    tempLogButtons[0].onInputSelect = function() {
+      if (!heatButtons[0].style.visible || !coolButtons[0].style.visible || !trashButtons[0].style.visible) {
+        GC.app.showNotification("There is no need for a corrective action", "error");
+        heatButtons[0].style.visible = true;
+        coolButtons[0].style.visible = true;
+        trashButtons[0].style.visible = true;
+      } else {
+        tempLogButtons[0].setState(ui.widget.ButtonView.states.DISABLED);
+      }
+    }
+
+    tempLogButtons[1].onInputSelect = function() {
+      if (heatButtons[1].style.visible) {
+        GC.app.showNotification("Appropriate corrective action not applied", "error");
+        heatButtons[1].style.visible = true;
+        coolButtons[1].style.visible = true;
+        trashButtons[1].style.visible = true;
+      } else {
+        tempLogButtons[1].setState(ui.widget.ButtonView.states.DISABLED);
+      }
+    }
+
+    tempLogButtons[2].onInputSelect = function() {
+      if (coolButtons[2].style.visible) {
+        GC.app.showNotification("Appropriate corrective action not applied", "error");
+        heatButtons[2].style.visible = true;
+        coolButtons[2].style.visible = true;
+        trashButtons[2].style.visible = true;
+      } else {
+        tempLogButtons[2].setState(ui.widget.ButtonView.states.DISABLED);
+      }
+    }
+
+    tempLogButtons[3].onInputSelect = function() {
+      if (trashButtons[3].style.visible) {
+        GC.app.showNotification("Appropriate corrective action not applied", "error");
+        heatButtons[3].style.visible = true;
+        coolButtons[3].style.visible = true;
+        trashButtons[3].style.visible = true;
+      } else {
+        tempLogButtons[3].setState(ui.widget.ButtonView.states.DISABLED);
+      }
     }
 
     this.mouseHand = new src.MouseHand({
