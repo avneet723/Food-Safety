@@ -1,0 +1,3 @@
+6bd855984a197ee166f889f0831465b1
+jsio("import device");var Timer=device.get("Timer"),MAX_TICK=1E4;exports.now=0;exports.frames=0;exports.reset=function(){this._last=null};exports.tick=function(a){try{a>MAX_TICK&&(exports.onLargeTick(a,MAX_TICK),a=1),exports.now+=a,exports.frames++,exports.onTick(a),ok=!0}finally{exports.debug&&!ok&&app.stopLoop()}};exports.onLargeTick=function(a,b){logger.warn("Dropping large tick: "+a+"; Threshold is set at: "+b)};exports.onTick=function(){};exports.debug=!1;
+exports.start=function(a){this.reset();this.isRunning=!0;device.get("Timer").start(exports.tick,a)};exports.stop=function(){this.reset();this.isRunning=!1;device.get("Timer").stop()};exports.getTickProgress=function(){var a=+new Date;return-(Timer.last||a)+a};

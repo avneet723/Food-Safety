@@ -1,0 +1,4 @@
+289bb0fb6fd1658bdea9f81636b61dae
+jsio("import ui.View");jsio("import ui.ImageView");jsio("import ui.SpriteView");jsio("import ui.TextView");var src_Notification=__class__;
+exports=src_Notification(function(){return this.init&&this.init.apply(this,arguments)},ui.View,function(a){this.init=function(b){a(this,"init",[{superview:b.superview,x:550,y:50,width:260,height:100,backgroundColor:"rgba(0, 0, 0, 1)",visible:!1}]);this.content=new ui.TextView({superview:this,width:this.style.width,height:this.style.height,wrap:!0,padding:15,color:"white"})};this.show=function(b,a){var c=this;this.content.updateOpts({text:b});switch(a){case "info":this.style.backgroundColor="rgba(65, 105, 225, 0.7)";
+break;case "tip":this.style.backgroundColor="rgba(34, 139, 34, 0.7)";break;case "error":this.style.backgroundColor="rgba(255, 99, 71, 0.7)"}this.style.visible=!0;this.hideTimer&&clearTimeout(this.hideTimer);this.hideTimer=setTimeout(function(){c.style.visible=!1},8E3)}});

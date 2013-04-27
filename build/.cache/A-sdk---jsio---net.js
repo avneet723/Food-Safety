@@ -1,0 +1,2 @@
+c3d174d1af248bbd300446c86c5ff0db
+jsio("import net.env");jsio("import std.JSON as JSON");JSON.createGlobal();exports.listen=function(a,b,c){if(!b)throw logger.error("No transport provided for net.listen");a=new ("string"==typeof b?net.env.getListener(b):b)(a,c);a.listen();return a};exports.connect=function(a,b,c){a=new ("string"==typeof b?net.env.getConnector(b):b)(a,c);a.connect();return a};exports.quickServer=function(a){jsio("import net.interfaces");return new net.interfaces.Server(a)};

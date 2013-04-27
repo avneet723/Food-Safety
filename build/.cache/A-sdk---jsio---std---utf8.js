@@ -1,0 +1,3 @@
+7a208d74214e909d57d16bdf1a1fc66a
+exports.UnicodeCodecError=function(a){this.message=a};var UnicodeCodecError=exports.UnicodeCodecError;UnicodeCodecError.prototype.toString=function(){return"UnicodeCodecError"+(this.message?": "+this.message:"")};exports.encode=function(a){try{return unescape(encodeURIComponent(a))}catch(b){throw new UnicodeCodecError("invalid input string");}};
+exports.decode=function(a){if(/[^\x00-\xFF]/.test(a))throw new UnicodeCodecError("invalid utf-8 bytes");var b,c;b=c=a.length;if(128<=a.charCodeAt(b-1)){for(var d=1;3>=d;d++)if(192<=a.charCodeAt(b-d)){c=b-d;break}try{decodeURIComponent(escape(a.slice(c))),c=b}catch(e){}}try{return[decodeURIComponent(escape(a.slice(0,c))),c]}catch(f){throw new UnicodeCodecError("invalid utf-8 bytes");}};

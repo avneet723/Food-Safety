@@ -1,0 +1,3 @@
+abf9c63c23fa0afe499ea36b62111e4e
+jsio("import lib.Enum");var mobile=new lib.Enum("ipad","iphone5","iphone","ios","nexus"),mobileBrowser=new lib.Enum("iphone-browser","ipad-browser","nexus-s-browser");
+exports.simulate=function(a){if(a.userAgent){var b=window.navigator,d=window.navigator={},c;for(c in b)d[c]=b[c];d.userAgent=a.userAgent}window.devicePixelRatio=a.devicePixelRatio||1;jsio("import device");b=a.name.toLowerCase();device.simulating=a;device.simulatingMobileNative=b in mobile;device.simulatingMobileBrowser=b in mobileBrowser;device.simulatingMobileBrowser&&(device.isMobileBrowser=!0,device.setUseDOM(!0));device.simulatingMobileNative&&device.setUseDOM(!1)};

@@ -1,0 +1,3 @@
+3b3032e5587a4413311dc99a5f67b29c
+var makeErrorClass=function(b){var c=function(a){"string"==typeof a?this.message=a:this.data=a};c.prototype={type:b,toString:function(){return b+(this.message?": "+this.message:"")}};return c};exports.ReadyStateError=makeErrorClass("ReadyStateError");exports.InvalidEncodingError=makeErrorClass("InvalidEncodingError");exports.ExpiredSession=makeErrorClass("ExpiredSession");exports.ServerUnreachable=makeErrorClass("ServerUnreachable",100);
+exports.ConnectionTimeout=makeErrorClass("ConnectionTimeout",101);exports.ServerProtocolError=makeErrorClass("ServerProtocolError",200);exports.ServerClosedConnection=makeErrorClass("ServerClosedConnection",301);exports.ConnectionClosedCleanly=makeErrorClass("ConnectionClosedCleanly",300);

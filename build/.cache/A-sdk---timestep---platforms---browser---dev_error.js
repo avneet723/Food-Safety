@@ -1,0 +1,2 @@
+e29051f12e5968103ce4385a6b3e2b80
+exports.render=function(a){logger.error("unhandled tick exception");logger.error(a.stack);for(var d=document.getElementsByTagName("canvas"),b=0,e;e=d[b];++b)render(e.getContext("2d"),a)};function render(a,d){function b(b){a.fillText(b,e,c);c+=20}a.fillStyle="rgb(0, 0, 255)";a.fillRect(0,0,a.canvas.width,a.canvas.height);var e=30,c=40;a.fillStyle="#FFF";a.font='bold 12px Monaco,"Bitstream Vera Sans Mono","Lucida Console",Terminal,monospace';b(d.message);c+=40;d.stack.split("\n").map(b)};

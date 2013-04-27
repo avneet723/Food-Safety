@@ -1,0 +1,2 @@
+e0f109ac0b3cc6a317d8ab6f3196393b
+jsio("import animate");jsio("import ui.View");jsio("import ui.ImageView");jsio("import ui.TextView");var src_CoolerScreen=__class__;exports=src_CoolerScreen(function(){return this.init&&this.init.apply(this,arguments)},ui.ImageView,function(a){this.init=function(){opts={image:"resources/images/CoolerScreen.png"};a(this,"init",[opts])};this.onInputSelect=function(){GC.app.goBack()}});

@@ -1,0 +1,3 @@
+d18961330aa689a5bb77bff6cb74ff61
+jsio("import ui.View");jsio("import ui.ImageView");jsio("import ui.SpriteView");jsio("import ui.TextView");var src_Status=__class__;
+exports=src_Status(function(){return this.init&&this.init.apply(this,arguments)},ui.ImageView,function(b){this.init=function(a){this.app=a.superview;b(this,"init",[{superview:a.superview,width:800,height:40,image:"resources/images/statusBar.png"}])};this.buildView=function(){var a=this;(new ui.View({superview:this,x:0,y:0,width:100,height:40})).onInputSelect=function(){a.app.goBack()};(new ui.View({superview:this,x:700,width:100,height:40})).onInputSelect=function(){a.app.showStepScreen()}}});

@@ -1,0 +1,3 @@
+42fb1964d543bbbff3fb88dc45eb083f
+var sdk_timestep_ui_backend_canvas_util_FragmentBin=__class__,FragmentBin=exports=sdk_timestep_ui_backend_canvas_util_FragmentBin(function(){return this.init&&this.init.apply(this,arguments)},"TextBin",function(){this.init=function(a){this.width=a.width;this.height=a.height;this.x=a.x;this.y=a.y};this.size=function(){return this.width*this.height};this.split=function(a,b){var c=[this];if(10<this.width&&10<this.height){if(10<this.height-b){var d=new FragmentBin({x:this.x,y:this.y+b,width:this.width,
+height:this.height-b});c.push(d)}10<this.width-a&&(d=new FragmentBin({x:this.x+a,y:this.y,width:this.width-a,height:b}),c.push(d))}this.width=a;this.height=b;this.filled=!0;return c}});

@@ -1,0 +1,4 @@
+4a9f7b83ea408a4296f60a1474e19f8a
+jsio("import device");jsio("import ui.View");jsio("import ui.ImageView");jsio("import ui.SpriteView");jsio("import ui.TextView");var src_StepScreen=__class__;
+exports=src_StepScreen(function(){return this.init&&this.init.apply(this,arguments)},ui.View,function(b){this.init=function(a){b(this,"init",[a])};this.buildView=function(){this.style.width=device.screen.width;this.style.height=device.screen.height;this.style.visible=!1;var a=new ui.View({superview:this,width:device.screen.width,height:device.screen.height,backgroundColor:"rgba(0, 0, 0, 0.1)"});this.popup=new ui.TextView({superview:this,x:100,y:100,width:device.screen.width-200,height:device.screen.height-
+200,backgroundColor:"rgba(0, 0, 0, 0.7)",color:"white",horizontalAlign:"left",padding:30,wrap:!0,size:20});var b=this;a.onInputSelect=function(){b.style.visible=!1}};this.show=function(a){this.popup.updateOpts({text:a});this.style.visible=!0}});
