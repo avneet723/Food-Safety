@@ -1,2 +1,2 @@
 var connect = require('connect');
-connect.createServer(connect.static(__dirname + "/build/release")).listen(8080);
+connect.createServer(connect.static(__dirname + "/build/release/browser-desktop")).listen(8080);
