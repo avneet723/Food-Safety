@@ -65,20 +65,6 @@ exports = Class(ui.ImageView, function (supr) {
       }
     });
 
-    var coolerStation = new ui.widget.ButtonView({
-      superview: this,
-      x: 0,
-      y: 100,
-      width: 150,
-      height: 280,
-      backgroundColor: 'rgba(0,0,0,0)',
-      title: "Cooler",
-      text: {
-        size: 18,
-        verticalAlign: "top"
-      }
-    });
-
     servingStation.onInputSelect = function(evt) {
       evt.cancel();
       GC.app.goToScreen('serving');
@@ -92,11 +78,6 @@ exports = Class(ui.ImageView, function (supr) {
     cookingStation.onInputSelect = function(evt) {
       evt.cancel();
       GC.app.goToScreen('cooking');
-    };
-
-    coolerStation.onInputSelect = function(evt) {
-      evt.cancel();
-      GC.app.goToScreen('cooler');
     };
   };
 

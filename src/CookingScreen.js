@@ -110,7 +110,7 @@ exports = Class(ui.ImageView, function (supr) {
       self.mouseHand.setImage("resources/images/thermometerClean.png");
     }
 
-    this.mouseHand = new src.mouseHand({
+    this.mouseHand = new src.MouseHand({
       superview: this,
       image: "resources/images/thermometerClean.png",
     });

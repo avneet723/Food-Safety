@@ -10,6 +10,10 @@ exports = Class(ui.ImageView, function (supr) {
     textOpts.width = opts.width;
     textOpts.height = opts.height;
 
-    var textView = new ui.TextView(textOpts);
+    this.textView = new ui.TextView(textOpts);
+  }
+
+  this.setText = function(text) {
+    this.textView.setText(text);
   }
 });
