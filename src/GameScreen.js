@@ -17,11 +17,15 @@ exports = Class(ui.ImageView, function (supr) {
     supr(this, 'init', [opts]);
   };
 
+  this.helpText =
+  "Click on any station to go to it.\n" +
+  "You need to do the Hand washing station first.\n"
+
   this.buildView = function() {
     var servingStation = new ui.widget.ButtonView({
       superview: this,
       x: 0,
-      y: device.height - 60,
+      y: 800 - 60,
       width: 200,
       height: 60,
       backgroundColor: 'rgba(0,0,0,0)',
@@ -52,7 +56,7 @@ exports = Class(ui.ImageView, function (supr) {
 
     var cookingStation = new ui.widget.ButtonView({
       superview: this,
-      x: device.width - 200,
+      x: 800 - 200,
       y: 260,
       width: 200,
       height: 90,
@@ -80,8 +84,4 @@ exports = Class(ui.ImageView, function (supr) {
       GC.app.goToScreen('cooking');
     };
   };
-
-  this.onInputSelect = function() {
-    GC.app.goBack();
-  }
 });

@@ -1,5 +1,3 @@
-import device;
-
 import ui.View;
 import ui.ImageView;
 import ui.SpriteView;
@@ -8,37 +6,38 @@ import ui.TextView;
 exports = Class(ui.View, function (supr) {
   this.init = function (opts) {
     supr(this, 'init', [opts]);
-  };
 
-  this.buildView = function() {
-    this.style.width = device.screen.width;
-    this.style.height = device.screen.height;
+    var self = this;
+
+    this.style.width = 800;
+    this.style.height = 600;
     this.style.visible = false;
 
     var background = new ui.View({
       superview: this,
-      width: device.screen.width,
-      height: device.screen.height,
+      width: 800,
+      height: 600,
       backgroundColor: "rgba(0, 0, 0, 0.1)"
     });
 
     this.popup = new ui.TextView({
       superview: this,
-      x: 100, y: 100,
-      width: device.screen.width - 200,
-      height: device.screen.height - 200,
+      x: 150, y: 150,
+      width: 800 - 300,
+      height: 600 - 300,
       backgroundColor: "rgba(0, 0, 0, 0.7)",
       color: "white",
+      fontFamily: "'Lucidia Console', Monaco, monospace",
       horizontalAlign: "left",
-      padding: 30,
+      padding: 20,
       wrap: true,
+      canHandleEvents: false,
       size: 20
     });
 
-    var that = this;
     background.onInputSelect = function() {
-      that.style.visible = false;  
-    };
+      self.style.visible = false;  
+    }
   }
 
   this.show = function(text) {

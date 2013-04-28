@@ -17,8 +17,8 @@ exports = Class(ui.ImageView, function (supr) {
   this.buildView = function () {
     var startButton = new ui.widget.ButtonView({
       superview: this,
-      x: device.width / 2 - 300,
-      y: device.height / 2 - 25,
+      x: 800 / 2 - 300,
+      y: 600 / 2 - 25,
       width: 100,
       height: 50, 
       backgroundColor: '#ccc',
@@ -27,8 +27,8 @@ exports = Class(ui.ImageView, function (supr) {
 
     var helpButton = new ui.widget.ButtonView({
       superview: this,
-      x: device.width / 2 - 150,
-      y: device.height / 2 - 25,
+      x: 800 / 2 - 150,
+      y: 600 / 2 - 25,
       width: 100,
       height: 50, 
       backgroundColor: '#ccc',
@@ -37,8 +37,8 @@ exports = Class(ui.ImageView, function (supr) {
 
     var aboutButton = new ui.widget.ButtonView({
       superview: this,
-      x: device.width / 2 + 0,
-      y: device.height / 2 - 25,
+      x: 800 / 2 + 0,
+      y: 600 / 2 - 25,
       width: 100,
       height: 50, 
       backgroundColor: '#ccc',
@@ -47,8 +47,8 @@ exports = Class(ui.ImageView, function (supr) {
 
     var exitButton = new ui.widget.ButtonView({
       superview: this,
-      x: device.width / 2 + 150,
-      y: device.height / 2 - 25,
+      x: 800 / 2 + 150,
+      y: 600 / 2 - 25,
       width: 100,
       height: 50, 
       backgroundColor: '#ccc',

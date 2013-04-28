@@ -36,14 +36,15 @@ exports = Class(ui.ImageView, function (supr) {
 
     this.scoreView = new src.TextImageView({
       superview: this,
-      x: 250, y: 0,
-      width: 300, height: 38,
+      x: 250, y: 5,
+      width: 250, height: 30,
       image: "resources/images/clock.png",
       text: {
         text: "Score: 0",
         color: "#00afdc",
         size: 34,
         fontFamily: "Helvetica",
+        padding: 2
       }
     });
   };

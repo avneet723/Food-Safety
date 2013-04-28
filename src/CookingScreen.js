@@ -121,22 +121,20 @@ exports = Class(ui.ImageView, function (supr) {
     this.mouseHand.update(point);
   }
 
-  this.helpText = "Note: Please make sure you have gloves on.\n" +
-    "1. Make sure that the food items reach their min temperature for at least 15 seconds\n" + 
-   "reduce the risk of cross contamination\n" +
-   "Items\tMin Temp (F)\tTime (seconds)\n" + 
-   "Beef, Pork, Seafood, Eggs\t145\t15 (or 4 minutes)\n" + 
-   "Ground Beef/pork, Sausage\t155\t15\n" + 
-   "Poultry - chicken, duck, turkey, etc.\t165\t15\n" +
-   "Casseroles\t165\t15\n" +
-   "Note: Roasts are larger product, you must make sure it stays at the correct temperature for 4 minutes.\n" +
-"2. Cook the item until it looks done and then take temperature.\n" +
-"3. Click on the item to start the timer and obtain temperature.\n" +
-"4. Click on the item again to stop taking the temperature.\n" +
-"5. Once done, click on \"Serve\" to remove it from the grill.\n" +
-"Reheating:\n" +
-"* Reheat to at least a minimum internal temperature of 165 Â°F for 15 seconds within 2 hours\n" +
-"* Reheating is only allowed once so that food doesnâ€™t go through the danger zone too many times"
+  this.helpText =
+  "1. Make sure that the food items reach their min temperature for at least 15 seconds\n" + 
+   "reduce the risk of cross contamination\n\n" +
+   "Items                        Min Temp (F)   Time (seconds)\n" + 
+   "Beef, Pork, Seafood, Eggs    145            15\n" + 
+   "Ground Beef/pork, Sausage    155            15\n" + 
+   "Poultry                      165            15\n" +
+   "Casseroles                   165            15\n" +
+   "Note: Roasts are larger product, you must make sure it stays at the correct temperature for 4 minutes.\n\n" +
+"2. Cook the item until it's done and then take temperature.\n" +
+"3. Click the item to start timer and obtain temperature.\n" +
+"4. Click the item again to stop taking the temperature.\n" +
+"5. Once done, click on \"Serve\" to remove it from the grill.\n"
 
-  this.endText = "You have successfully cooked the food.\nPlease proceed to the next station."
+  this.endText = 
+  "You have successfully cooked the food.\nPlease proceed to the next station.";
 });

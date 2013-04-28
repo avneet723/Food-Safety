@@ -26,6 +26,9 @@ exports = Class(ui.View, function (supr) {
   "6. Dry your hands\n" +
   "7. Put on gloves\n";
 
+  this.endText =
+  "You have successfully washed your hands.\n"
+
   this.buildView = function() {
     var self = this;
 
@@ -145,9 +148,8 @@ exports = Class(ui.View, function (supr) {
         rinseHands = false;
         glovesOn = true;
 
-      GC.app.showStepScreen(
-          "You have successfully washed your hands.\nPlease proceed to the next station."
-      );
+        GC.app.glovesOn = true;
+        GC.app.showEndScreen();
       } else if (paperTowelInHand && waterOn) {
         GC.app.showNotification("Please turn off water with paper towel before putting gloves on.", "error");
       } else {
@@ -163,11 +165,6 @@ exports = Class(ui.View, function (supr) {
       width: 85,
       height: 85,
       visible: false
-    });
-
-    this.mouseHand = new src.MouseHand({
-      superview: this,
-      image: "resources/images/mouseHand.png"
     });
 
     soapButton.onInputSelect = function() {
@@ -374,6 +371,11 @@ exports = Class(ui.View, function (supr) {
       image: "resources/images/paperTowel.png",
       canHandleEvents: false,
       visible: false
+    });
+
+    this.mouseHand = new src.MouseHand({
+      superview: this,
+      image: "resources/images/mouseHand.png"
     });
 
     this.onInputMove = function(evt, point) {

@@ -13,6 +13,12 @@ import src.MouseHand;
 import src.ServingFoodItem;
  
 exports = Class(ui.ImageView, function (supr) {
+  this.helpText =
+  "";
+
+  this.endText =
+  "You have successfully taken the temperature of all the items.";
+
   this.init = function () {
     var dirty = false;
 
@@ -198,6 +204,18 @@ exports = Class(ui.ImageView, function (supr) {
       trashButtons[i] = trashButton;
     }
 
+    var tempLogSigned = function(i) {
+      tempLogButtons[i].setState(ui.widget.ButtonView.states.DISABLED);
+
+      for (var j = 0; j < tempLogButtons.length; j++) {
+        if (tempLogButtons[j].getState() != ui.widget.ButtonView.states.DISABLED) {
+          return;
+        }
+      }
+
+      GC.app.showEndScreen();
+    }
+
     tempLogButtons[0].onInputSelect = function() {
       if (!heatButtons[0].style.visible || !coolButtons[0].style.visible || !trashButtons[0].style.visible) {
         GC.app.showNotification("There is no need for a corrective action", "error");
@@ -205,7 +223,7 @@ exports = Class(ui.ImageView, function (supr) {
         coolButtons[0].style.visible = true;
         trashButtons[0].style.visible = true;
       } else {
-        tempLogButtons[0].setState(ui.widget.ButtonView.states.DISABLED);
+        tempLogSigned(0);
       }
     }
 
@@ -216,7 +234,7 @@ exports = Class(ui.ImageView, function (supr) {
         coolButtons[1].style.visible = true;
         trashButtons[1].style.visible = true;
       } else {
-        tempLogButtons[1].setState(ui.widget.ButtonView.states.DISABLED);
+        tempLogSigned(1);
       }
     }
 
@@ -227,7 +245,7 @@ exports = Class(ui.ImageView, function (supr) {
         coolButtons[2].style.visible = true;
         trashButtons[2].style.visible = true;
       } else {
-        tempLogButtons[2].setState(ui.widget.ButtonView.states.DISABLED);
+        tempLogSigned(2);
       }
     }
 
@@ -238,7 +256,7 @@ exports = Class(ui.ImageView, function (supr) {
         coolButtons[3].style.visible = true;
         trashButtons[3].style.visible = true;
       } else {
-        tempLogButtons[3].setState(ui.widget.ButtonView.states.DISABLED);
+        tempLogSigned(3);
       }
     }
 

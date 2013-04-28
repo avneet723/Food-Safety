@@ -21,32 +21,34 @@ import src.HandwashingScreen as HandwashingScreen;
 import src.CookingScreen as CookingScreen;
 import src.CoolerScreen as CoolerScreen;
 import src.StepScreen as StepScreen;
+import src.EndScreen as EndScreen;
 import src.Notification as Notification;
 import src.Status as Status;
 
 exports = Class(GC.Application, function () {
   this.initUI = function () {
-    this.view.style.backgroundColor = '#30B040';
+    this.view.style.backgroundColor = 'black';
+    this.style.x = (device.screen.width - 800) / 2;
+    this.style.y = (device.screen.height - 600) / 2;
 
     this.score = 0;
     this.maxScore = 0;
+    this.glovesOn = true; //NOTE: change to false before release
 
 		//A StackView to the root of the scene graph 
     this.rootView = new StackView({
       superview: this,
-      x: 0,
-      y: 0,
       width: 800,
       height: 600,
       clip: true,
-      backgroundColor: '#37B34A'
+      backgroundColor: 'black'
     });
 
     this.stepScreen = new StepScreen({
       superview: this
     });
 
-    this.endScreen = new StepScreen({
+    this.endScreen = new EndScreen({
       superview: this
     });
 
@@ -82,6 +84,13 @@ exports = Class(GC.Application, function () {
 	}
 
   this.goToScreen = function(screenName) {
+    var self = this;
+
+    if (!this.glovesOn && (screenName == 'serving' || screenName == 'cooking')) {
+      this.showNotification("You must wash your hands before doing this station", "error");
+      return;
+    }
+
     this.rootView.push(this.screens[screenName]);
 
     this.statusBar.style.visible = (screenName != 'title')
@@ -95,6 +104,8 @@ exports = Class(GC.Application, function () {
       } else {
         this.showNotification("Achievement Unlocked: New Station (100)", "info");
       }
+
+      setTimeout(function() { self.showStepScreen(); }, 1000);
     }
   }
 
@@ -108,6 +119,10 @@ exports = Class(GC.Application, function () {
 
   this.showStepScreen = function() {
     this.stepScreen.show(this.rootView.getCurrentView().helpText);
+  }
+
+  this.showEndScreen = function() {
+    this.endScreen.show(this.rootView.getCurrentView().endText);
   }
 
   this.showEndScreen = function() {
