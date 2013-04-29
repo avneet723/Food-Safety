@@ -115,6 +115,9 @@ exports = Class(GC.Application, function () {
 
     if ((viewLength - 1) <= 1)
       this.statusBar.style.visible = false;
+
+    this.stepScreen.hide();
+    this.endScreen.hide();
   }
 
   this.showStepScreen = function() {

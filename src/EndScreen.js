@@ -46,4 +46,8 @@ exports = Class(ui.View, function (supr) {
     this.popup.updateOpts({text: text + "\n\nClick anywhere to go back to the main kitchen."});
     this.style.visible = true;
   }
+
+  this.hide = function() {
+    this.style.visible = false;
+  }
 });

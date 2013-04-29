@@ -208,7 +208,7 @@ exports = Class(ui.ImageView, function (supr) {
       tempLogButtons[i].setState(ui.widget.ButtonView.states.DISABLED);
 
       for (var j = 0; j < tempLogButtons.length; j++) {
-        if (tempLogButtons[j].getState() != ui.widget.ButtonView.states.DISABLED) {
+        if (tempLogButtons[j]._state != ui.widget.ButtonView.states.DISABLED) {
           return;
         }
       }
