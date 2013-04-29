@@ -1,2 +1,0 @@
-a2ed238a28b1a5293184562f262373b6
-var util=jsio.__jsio.__util;exports.join=util.buildPath;exports.resolveRelativePath=util.resolveRelativePath;exports.splitPath=util.splitPath;exports.makeRelativePath=util.makeRelativePath;exports.splitExt=function(a){var a=exports.splitPath(a),b=a.filename.lastIndexOf(".");-1==b?(a.basename=a.filename,a.ext=""):(a.basename=a.filename.substring(0,b),a.ext=a.filename.substring(b));return a};

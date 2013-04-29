@@ -1,4 +1,0 @@
-83c08265a261770e8b4aec3178c3cfa9
-jsio("import net.interfaces");exports.DelimitedProtocol=__class__;
-exports.DelimitedProtocol=exports.DelimitedProtocol(function(){return this.init&&this.init.apply(this,arguments)},net.interfaces.Protocol,function(){this.init=function(a){a||(a="\r\n");this.delimiter=a;this.buffer=""};this.connectionMade=function(){logger.debug("connectionMade")};this.dataReceived=function(a){if(a){logger.debug("dataReceived:("+a.length+")",a);logger.debug("last 2:",JSON.stringify(a.slice(a.length-2)));for(this.buffer+=a;-1!=(a=this.buffer.indexOf(this.delimiter));){var b=this.buffer.slice(0,
-a);this.buffer=this.buffer.slice(a+this.delimiter.length);this.lineReceived(b)}}};this.lineReceived=function(a){logger.debug("Not implemented, lineReceived:",a)};this.sendLine=function(a){logger.debug("WRITE:",JSON.stringify(a+this.delimiter));this.transport.write(a+this.delimiter)};this.connectionLost=function(){logger.debug("connectionLost")}});

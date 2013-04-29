@@ -1,4 +1,0 @@
-5ac599f6ab42a01bfeeb39c65b271779
-jsio("import ui.View");jsio("import ui.ImageView");jsio("import ui.SpriteView");jsio("import ui.TextView");var src_StepScreen=__class__;
-exports=src_StepScreen(function(){return this.init&&this.init.apply(this,arguments)},ui.View,function(b){this.init=function(a){b(this,"init",[a]);var c=this;this.style.width=800;this.style.height=600;this.style.visible=!1;a=new ui.View({superview:this,width:800,height:600,backgroundColor:"rgba(0, 0, 0, 0.1)"});this.popup=new ui.TextView({superview:this,x:150,y:150,width:500,height:300,backgroundColor:"rgba(0, 0, 0, 0.7)",color:"white",fontFamily:"'Lucidia Console', Monaco, monospace",horizontalAlign:"left",
-padding:20,wrap:!0,canHandleEvents:!1,size:20});a.onInputSelect=function(){c.style.visible=!1}};this.show=function(a){this.popup.updateOpts({text:a});this.style.visible=!0}});

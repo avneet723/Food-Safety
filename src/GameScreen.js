@@ -11,7 +11,7 @@ import ui.widget.ButtonView;
 exports = Class(ui.ImageView, function (supr) {
   this.init = function () {
     opts = {
-      image: "resources/images/kitchen.jpg"
+      image: "resources/images/kitchen.png"
     };
 
     supr(this, 'init', [opts]);
@@ -25,33 +25,19 @@ exports = Class(ui.ImageView, function (supr) {
     var servingStation = new ui.widget.ButtonView({
       superview: this,
       x: 0,
-      y: 800 - 60,
-      width: 200,
-      height: 60,
-      backgroundColor: 'rgba(0,0,0,0)',
-      image: "resources/images/arrow.png",
-      title: "Serving Station",
-      text: {
-        horizontalAlign: "right",
-        padding: 10,
-        size: 18,
-        color: "white",
-      }
+      y: 600 - 100,
+      width: 250,
+      height: 100,
+      backgroundColor: 'transparent',
     });
 
     var handwashingStation = new ui.widget.ButtonView({
       superview: this,
-      x: 266,
+      x: 260,
       y: 216,
-      width: 150,
-      height: 88,
-      backgroundColor: 'rgba(0,0,0,0)',
-      title: "Handwashing Station",
-      text: {
-        size: 18,
-        verticalAlign: "bottom",
-        padding: 4
-      }
+      width: 250,
+      height: 105,
+      backgroundColor: 'transparent',
     });
 
     var cookingStation = new ui.widget.ButtonView({
@@ -60,13 +46,7 @@ exports = Class(ui.ImageView, function (supr) {
       y: 260,
       width: 200,
       height: 90,
-      backgroundColor: 'rgba(0,0,0,0)',
-      title: "Cooking Station",
-      text: {
-        size: 18,
-        verticalAlign: "bottom",
-        padding: 4
-      }
+      backgroundColor: 'transparent',
     });
 
     servingStation.onInputSelect = function(evt) {

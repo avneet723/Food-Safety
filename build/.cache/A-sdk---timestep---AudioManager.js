@@ -1,2 +1,0 @@
-739dbad1d2ed207cdb1a8497f1cf8a1a
-jsio("import device");jsio("import event.Emitter as Emitter");GLOBAL.ACCESSIBILITY=new (Class(Emitter,function(){this.muted=!1;this.mute=function(a){this.muted=a;this.publish("MuteChange")}}));GLOBAL.ONACCESSIBLE&&GLOBAL.ONACCESSIBLE();device.isMobileBrowser&&!device.simulatingMobileBrowser?(jsio("import platforms.browser.MobileBrowserAPI"),exports=platforms.browser.MobileBrowserAPI):exports=jsio("import ui.backend.sound.HTML5API");

@@ -1,3 +1,0 @@
-3d8081c44cce38406b19d2f91e4c65a0
-function createGetter(c,b){return function(){return this[b]}}function createSetter(c,b,a,e){void 0!==e&&(c[b]=e);return"function"==typeof a?function(c){if(this[b]!==c){var d=this[b];this[b]=c;a.call(this,b,c,d)}}:"string"==typeof a?function(c){if(this[b]!==c){var d=this[b];this[b]=c;this[a](b,c,d)}}:function(a){this[b]=a}}
-exports=function(c,b,a){!a.get&&!a.set&&!a.cb&&"value"in a?c[b]=a.value:(a.get||(a.get=createGetter(c,"_"+b)),a.set||(a.set=createSetter(c,"_"+b,a.cb,a.value)),"value"in a&&(c["_"+b]=a.value),delete a.value,Object.defineProperty)?Object.defineProperty(c,b,a):c.__defineSetter__?(c.__defineSetter__(b,a.set),c.__defineGetter__(b,a.get)):c[b]=a.value};

@@ -1,4 +1,0 @@
-1d966061690349d443bc71ad63708904
-jsio("import ui.View");jsio("import ui.ImageView");jsio("import ui.TextView");jsio("import ui.widget.ButtonView");jsio("import src.TextImageView");var src_ServingFoodItem=__class__;
-exports=src_ServingFoodItem(function(){return this.init&&this.init.apply(this,arguments)},ui.ImageView,function(b){this.init=function(a){this.temp=a.temp;this.bottom="bottom"==a.side;b(this,"init",[a]);this.tempImage=new src.TextImageView({superview:this,x:0,y:this.bottom?120:-40,width:100,height:38,visible:!1,image:"resources/images/clock.png",text:{text:this.temp+"\u00b0F",color:"#00afdc",size:34,fontFamily:"Helvetica"}})};this.hideTemp=function(){this.tempImage.style.visible=!1};this.showTemp=
-function(){this.tempImage.style.visible=!0};this.toggleTemp=function(){this.tempImage.style.visible?this.hideTemp():this.showTemp()}});

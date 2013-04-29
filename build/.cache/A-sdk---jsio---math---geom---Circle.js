@@ -1,2 +1,0 @@
-bd08147b5099f265a65e910dbd273d7d
-jsio("import .Point");var sdk_jsio_math_geom_Circle=__class__;exports=sdk_jsio_math_geom_Circle(function(){return this.init&&this.init.apply(this,arguments)},Point,function(b){this.init=function(a,b,c){switch(arguments.length){case 0:this.radius=this.y=this.x=0;break;case 1:case 2:this.x=a.x||0;this.y=a.y||0;this.radius=a.radius||0;break;case 3:this.x=a,this.y=b,this.radius=c}};this.scale=function(a){b(this,"scale",arguments);this.radius*=a;return this}});

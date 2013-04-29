@@ -1,3 +1,0 @@
-57ce234806b4bd72bcd2c999a9fc270a
-if(DEBUG){var _isInstalled=!1;exports.install=function(a){_isInstalled||(_isInstalled=!0,a.onError=function(b){logger.log("log protocol error:",b)},a.onConnect(function(){a.sendEvent("HANDSHAKE",{type:jsio.__env.name,appID:CONFIG.appID,version:CONFIG.version,title:CONFIG.title,shortName:CONFIG.shortName,userAgent:navigator.userAgent,device:GLOBAL.NATIVE?NATIVE.device:null});logger.log("DEBUGGING CONNECTION MADE")}),a.onDisconnect(function(){logger.log("DEBUGGING CONNECTION LOST")}),a.onRequest.subscribe("EVAL",
-this,function(b){try{var a;a=GLOBAL.NATIVE&&NATIVE.eval?NATIVE.eval(b.args,"[console]"):window.eval(b.args,"[console]");b.respond(stringify(a))}catch(c){b.error(c.name+": "+c.message)}}))}};

@@ -1,4 +1,0 @@
-a84069c88f0a043cb7e00c2c3ea8f60f
-jsio("import ui.View");jsio("import ui.ImageView");jsio("import ui.SpriteView");jsio("import ui.TextView");jsio("import src.TextImageView");var src_Status=__class__;
-exports=src_Status(function(){return this.init&&this.init.apply(this,arguments)},ui.ImageView,function(c){this.init=function(a){var b=this;this.app=a.superview;c(this,"init",[{superview:a.superview,width:800,height:40,image:"resources/images/statusBar.png"}]);(new ui.View({superview:this,x:0,y:0,width:100,height:40})).onInputSelect=function(){b.app.goBack()};(new ui.View({superview:this,x:700,width:100,height:40})).onInputSelect=function(){b.app.showStepScreen()};this.scoreView=new src.TextImageView({superview:this,
-x:250,y:5,width:250,height:30,image:"resources/images/clock.png",text:{text:"Score: 0",color:"#00afdc",size:34,fontFamily:"Helvetica",padding:2}})};this.updateScore=function(){this.scoreView.setText("Score: "+GC.app.score+"/"+GC.app.maxScore)}});
