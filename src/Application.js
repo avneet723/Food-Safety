@@ -6,6 +6,7 @@
  */
 // devkit imports
 import device;
+import ui.View as View;
 import ui.StackView as StackView;
 import ui.TextView as TextView;
 import ui.ImageView as ImageView;
@@ -27,17 +28,29 @@ import src.Status as Status;
 
 exports = Class(GC.Application, function () {
   this.initUI = function () {
+    var self = this;
+
     this.view.style.backgroundColor = 'black';
-    this.style.x = (device.screen.width - 800) / 2;
-    this.style.y = (device.screen.height - 600) / 2;
 
     this.score = 0;
     this.maxScore = 0;
     this.glovesOn = true; //NOTE: change to false before release
 
+    var background = new ImageView({
+      superview: this,
+      width: device.screen.width, height: device.screen.height,
+      image: "resources/images/background.png"
+    });
+
+    var root = new View({
+      superview: this,
+      x: (device.screen.width - 800) / 2, y: (device.screen.height - 600) / 2,
+      width: 800, height: 600
+    });
+
 		//A StackView to the root of the scene graph 
     this.rootView = new StackView({
-      superview: this,
+      superview: root,
       width: 800,
       height: 600,
       clip: true,
@@ -45,19 +58,19 @@ exports = Class(GC.Application, function () {
     });
 
     this.stepScreen = new StepScreen({
-      superview: this
+      superview: root
     });
 
     this.endScreen = new EndScreen({
-      superview: this
+      superview: root
     });
 
     this.notification = new Notification({
-      superview: this
+      superview: root
     });
 
     this.statusBar = new Status({
-      superview: this
+      superview: root
     });
     this.statusBar.style.visible = false;
                
