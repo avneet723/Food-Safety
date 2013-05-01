@@ -18,8 +18,9 @@ exports = Class(ui.ImageView, function (supr) {
   };
 
   this.helpText =
-  "Click on any station to go to it.\n" +
-  "You need to do the Hand washing station first.\n"
+  "Click on the Handwashing station to begin. Once you have completed that, click on " +
+  "Cooking and Serving sections to continue. Be on the lookout for blue info boxes as you " +
+  "progress. A perfect score will be 400/400, points will be deducted for mistakes."
 
   this.buildView = function() {
     var servingStation = new ui.widget.ButtonView({

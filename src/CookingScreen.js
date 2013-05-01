@@ -122,18 +122,12 @@ exports = Class(ui.ImageView, function (supr) {
   }
 
   this.helpText =
-  "1. Make sure that the food items reach their min temperature for at least 15 seconds\n" + 
-   "reduce the risk of cross contamination\n\n" +
-   "Items                        Min Temp (F)   Time (seconds)\n" + 
-   "Beef, Pork, Seafood, Eggs    145            15\n" + 
-   "Ground Beef/pork, Sausage    155            15\n" + 
-   "Poultry                      165            15\n" +
-   "Casseroles                   165            15\n" +
-   "Note: Roasts are larger product, you must make sure it stays at the correct temperature for 4 minutes.\n\n" +
-"2. Cook the item until it's done and then take temperature.\n" +
-"3. Click the item to start timer and obtain temperature.\n" +
-"4. Click the item again to stop taking the temperature.\n" +
-"5. Once done, click on \"Serve\" to remove it from the grill.\n"
+    "After the items have finished cooking, use the thermometer to take the temperature. " + 
+    "You need to leave the thermometer in for 15 seconds. " +
+    "To avoid cross-contamination and cross-contact, make sure to sanitize your thermometer between different items.\n\n" +
+    "Beef, pork, Seafood, Eggs – 145°F\n" +
+    "Ground Beef/Pork, Sausage – 155°F\n" +
+    "Poultry (Chicken/Turkey/Duck) – 165°F\n"
 
   this.endText = 
   "You have successfully cooked the food.\nPlease proceed to the next station.";

@@ -6,9 +6,6 @@ import src.TextImageView;
 
 exports = Class(ui.ImageView, function (supr) {
   this.init = function (opts) {
-    var self = this;
-    this.app = opts.superview;
-
     supr(this, 'init', [{
       superview: opts.superview,
       width: 800,
@@ -31,7 +28,7 @@ exports = Class(ui.ImageView, function (supr) {
       width: 100,
       height: 40
     }).onInputSelect = function() {
-      self.app.showStepScreen();
+      GC.app.showStepScreen();
     }
 
     this.scoreView = new src.TextImageView({

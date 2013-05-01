@@ -8,7 +8,7 @@ exports = Class(ui.ImageView, function (supr) {
     opts = {
       x: 0,
       y: 0,
-      image: "resources/images/backgroundmain.png"
+      image: "resources/images/backgroundmain.jpg"
     };
 
     supr(this, 'init', [opts]);
@@ -17,49 +17,37 @@ exports = Class(ui.ImageView, function (supr) {
   this.buildView = function () {
     var startButton = new ui.widget.ButtonView({
       superview: this,
-      x: 800 / 2 - 340,
-      y: 600 - 50,
-      width: 71,
-      height: 30,
+      x: 60,
+      y: 300,
+      width: 95,
+      height: 45,
       images: {
-        up: "resources/images/Play.png",
-        down: "resources/images/Play.png",
+        up: "resources/images/Play-None.png",
+        down: "resources/images/Play-Active.png",
       }
     });
 
     var helpButton = new ui.widget.ButtonView({
       superview: this,
-      x: 800 / 2 - 140,
-      y: 600 - 50,
-      width: 75,
-      height: 32, 
+      x: 60,
+      y: 400,
+      width: 97,
+      height: 45, 
       images: {
-        up: "resources/images/Help.png",
-        down: "resources/images/Help.png",
+        up: "resources/images/Help-None.png",
+        down: "resources/images/Help-Active.png",
       }
     });
 
     var aboutButton = new ui.widget.ButtonView({
       superview: this,
-      x: 800 / 2 + 60,
-      y: 600 - 50,
-      width: 83,
-      height: 32, 
+      x: 60,
+      y: 500,
+      width: 107,
+      height: 45, 
       images: {
-        up: "resources/images/About.png",
-        down: "resources/images/About.png",
-      }
-    });
-
-    var exitButton = new ui.widget.ButtonView({
-      superview: this,
-      x: 800 / 2 + 260,
-      y: 600 - 50,
-      width: 69,
-      height: 32, 
-      images: {
-        up: "resources/images/Exit.png",
-        down: "resources/images/Exit.png",
+        up: "resources/images/About-None.png",
+        down: "resources/images/About-Active.png",
       }
     });
 
@@ -73,10 +61,6 @@ exports = Class(ui.ImageView, function (supr) {
 
     aboutButton.onInputSelect = function() {
       GC.app.goToScreen('about');
-    };
-
-    exitButton.onInputSelect = function() {
-      GC.app.goToScreen('exit');
     };
   };
 });

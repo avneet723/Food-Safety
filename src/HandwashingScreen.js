@@ -18,13 +18,16 @@ exports = Class(ui.View, function (supr) {
   };
 
   this.helpText = 
-  "1. Check for paper towel\n" +
-  "2. Turn on the water\n" +
-  "3. Get soap\n" +
-  "4. Scrub hands to remove dirt for at least 20 sec.\n" +
-  "5. Rinse your hands\n" +
-  "6. Dry your hands\n" +
-  "7. Put on gloves\n";
+  "To complete this section you must wash your hands in the correct order.\n" +
+  "  a. Make sure you are at a handwashing sink.\n" +
+  "  b. Check for paper towels.\n" +
+  "  c. Wet your hands.\n" +
+  "  d. Apply soap.\n" +
+  "  e. Scrub hands and forearms for at least 20 seconds.\n" +
+  "  f. Rinse your hands.\n" +
+  "  g. Dry your hands.\n" +
+  "  h. Use paper towel to turn off water.\n\n" +
+  "To finish this section you will have to put on a new pair of gloves.\n"
 
   this.endText =
   "You have successfully washed your hands.\n"
@@ -230,7 +233,7 @@ exports = Class(ui.View, function (supr) {
       if (dispenser.isPlaying) return;
 
       if (scrubHands) {
-        GC.app.showNotification("Your hands have not been scrubbed", "error");
+        GC.app.showNotification("Your hands have not been rinsed", "error");
         return;
       }
 

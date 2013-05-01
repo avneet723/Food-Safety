@@ -14,7 +14,9 @@ import src.ServingFoodItem;
  
 exports = Class(ui.ImageView, function (supr) {
   this.helpText =
-  "";
+  "Click on each item to take the serving temperature, then click the Temperature Log to record temperature and any needed corrective actions. " + 
+  "To avoid cross-contamination and cross-contact, make sure to sanitize your thermometer between different items. " +
+  "Cold food items should be held at 40 degrees or below and hot food items should be held at 140 degrees or above."
 
   this.endText =
   "You have successfully taken the temperature of all the items.";
@@ -128,7 +130,7 @@ exports = Class(ui.ImageView, function (supr) {
 
     var closeButton = new ui.widget.ButtonView({
       superview: tempLogScreen,
-      x: (800 - 80) / 2, y: 600 - 80,
+      x: (800 - 80) / 2, y: 600 - 130,
       width: 80, height: 30,
       images: {
         up: "resources/images/Close-Button-None.png",
@@ -141,6 +143,8 @@ exports = Class(ui.ImageView, function (supr) {
     }
 
     var tempLogButtons = [];
+    var supervisorButtons = [];
+    var correctiveActionButtons = [];
     var heatButtons = [];
     var coolButtons = [];
     var trashButtons = [];
@@ -148,7 +152,7 @@ exports = Class(ui.ImageView, function (supr) {
     for (var i = 0; i < 4; i++) {
       tempLogButtons[i] = new ui.widget.ButtonView({
         superview: tempLogScreen,
-        x: 670, y: 160 + (i * 95),
+        x: 730, y: 230 + (i * 62),
         width: 59, height: 30,
 
         clickOnce: true,
@@ -158,24 +162,49 @@ exports = Class(ui.ImageView, function (supr) {
         }
       });
 
-      var heatButton = new ui.widget.ButtonView({
+      correctiveActionButtons[i] = new ui.widget.ButtonView({
         superview: tempLogScreen,
-        x: 262, y: 142 + (i * 95),
-        width: 60, height: 65,
+        x: 420, y: 220 + (i * 62),
+        width: 211, height: 47,
+        visible: false,
+        image: "resources/images/correctiveActions.png"
+      });
+
+      supervisorButtons[i] = new ui.widget.ButtonView({
+        superview: tempLogScreen,
+        x: 494, y: 220 + (i * 62),
+        width: 55, height: 45,
+        images: {
+          up: "resources/images/Super-None.png",
+          down: "resources/images/Super-Active.png"
+        }
+      });
+
+      (function(supervisorButton, correctiveActionButton) {
+        supervisorButton.onInputSelect = function() {
+          supervisorButton.style.visible = false;
+          correctiveActionButton.style.visible = true;
+        }
+      })(supervisorButtons[i], correctiveActionButtons[i]);
+
+      var heatButton = new ui.widget.ButtonView({
+        superview: correctiveActionButtons[i],
+        x: 0, y: 0,
+        width: 37, height: 47,
         backgroundColor: "rgba(255, 255, 255, 0.6)"
       });
 
       var coolButton = new ui.widget.ButtonView({
-        superview: tempLogScreen,
-        x: 380, y: 142 + (i * 95),
-        width: 65, height: 65,
+        superview: correctiveActionButtons[i],
+        x: 74, y: 0,
+        width: 47, height: 47,
         backgroundColor: "rgba(255, 255, 255, 0.6)"
       });
 
       var trashButton = new ui.widget.ButtonView({
-        superview: tempLogScreen,
-        x: 520, y: 142 + (i * 95),
-        width: 55, height: 70,
+        superview: correctiveActionButtons[i],
+        x: 170, y: 0,
+        width: 38, height: 47,
         backgroundColor: "rgba(255, 255, 255, 0.6)"
       });
 
