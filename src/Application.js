@@ -34,7 +34,7 @@ exports = Class(GC.Application, function () {
 
     this.score = 0;
     this.maxScore = 0;
-    this.glovesOn = true; //NOTE: change to false before release
+    this.glovesOn = false; //NOTE: change to false before release
 
     var background = new ImageView({
       superview: this,

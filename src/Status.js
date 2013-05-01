@@ -22,7 +22,7 @@ exports = Class(ui.ImageView, function (supr) {
       width: 100,
       height: 40,
     }).onInputSelect = function() {
-      self.app.goBack();
+      GC.app.goBack();
     };
 
     new ui.View({
