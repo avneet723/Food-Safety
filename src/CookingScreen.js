@@ -22,6 +22,7 @@ exports = Class(ui.ImageView, function (supr) {
 
   this.buildView = function() {
     var dirty = false;
+    var shownBeefHelpText = false;
 
     var foodItems = [];
     foodItems[0] = new src.FoodItem({
@@ -30,7 +31,8 @@ exports = Class(ui.ImageView, function (supr) {
       width: 180, height: 92,
       uncookedImage: "resources/images/stoveTopLeftUncooked.png",
       cookedImage: "resources/images/stoveTopLeftCooked.png",
-      minTemp: 145, side: "top"
+      minTemp: 145, side: "top",
+      name: "Beef"
     });
 
     foodItems[1] = new src.FoodItem({
@@ -39,7 +41,8 @@ exports = Class(ui.ImageView, function (supr) {
       width: 180, height: 92,
       uncookedImage: "resources/images/stoveTopRightUncooked.png",
       cookedImage: "resources/images/stoveTopRightCooked.png",
-      minTemp: 165, side: "top"
+      minTemp: 165, side: "top",
+      name: "Chicken"
     });
 
     foodItems[2] = new src.FoodItem({
@@ -48,7 +51,8 @@ exports = Class(ui.ImageView, function (supr) {
       width: 140, height: 92,
       uncookedImage: "resources/images/stoveBottomLeftUncooked.png",
       cookedImage: "resources/images/stoveBottomLeftCooked.png",
-      minTemp: 145, side: "bottom"
+      minTemp: 145, side: "bottom",
+      name: "Fish"
     });
 
     foodItems[3] = new src.FoodItem ({
@@ -57,7 +61,8 @@ exports = Class(ui.ImageView, function (supr) {
       width: 160, height: 110,
       uncookedImage: "resources/images/stoveBottomRightUncooked.png",
       cookedImage: "resources/images/stoveBottomRightCooked.png",
-      minTemp: 155, side: "bottom"
+      minTemp: 155, side: "bottom",
+      name: "Burger"
     });
 
     var self = this;
@@ -65,6 +70,11 @@ exports = Class(ui.ImageView, function (supr) {
     foodItems.forEach(function(foodItem) {
       foodItem.onInputSelect = function() {
         if (!foodItem.temp.style.visible) {
+          if (!shownBeefHelpText) {
+            shownBeefHelpText = true; 
+            GC.app.showNotification(self.infoText.roast, "info");
+          }
+
           if (dirty) {
             GC.app.showNotification("Please wipe your thermometer before using it on another item", "error");
             return;
@@ -99,7 +109,16 @@ exports = Class(ui.ImageView, function (supr) {
       superview: this,
       x: 0, y: 415,
       width: 88, height: 85,
-      backgroundColor: "rgba(0,0,0,0)"
+      backgroundColor: "transparent"
+    });
+
+    var wipeLabel = new ui.TextView({
+      superview: this,
+      x: 0, y: 380,
+      width: 88, height: 40,
+      text: "Wipes",
+      color: "white",
+      size: 16
     });
 
     wipeButton.onInputSelect = function() {
@@ -114,10 +133,15 @@ exports = Class(ui.ImageView, function (supr) {
       superview: this,
       image: "resources/images/thermometerClean.png",
     });
+
+    GC.app.stepScreen.onFirstHide = function() {
+      foodItems.forEach(function(foodItem) {
+        foodItem.temp.start();
+      });
+    }
   }
 
   this.onInputMove = function(evt, point) {
-    //console.debug(point.x + ", " + point.y);
     this.mouseHand.update(point);
   }
 
@@ -127,8 +151,13 @@ exports = Class(ui.ImageView, function (supr) {
     "To avoid cross-contamination and cross-contact, make sure to sanitize your thermometer between different items.\n\n" +
     "Beef, pork, Seafood, Eggs – 145°F\n" +
     "Ground Beef/Pork, Sausage – 155°F\n" +
-    "Poultry (Chicken/Turkey/Duck) – 165°F\n"
+    "Poultry (Chicken/Turkey/Duck) – 165°F\n\n" +
+    "Once you have taken the temperature for 15 seconds click the Serve button to continue."
 
   this.endText = 
   "You have successfully cooked the food.\nPlease proceed to the next station.";
+
+  this.infoText = {
+    roast: "If this were a roast you would have to hold the thermometer for four minutes because it is a larger product."
+  }
 });

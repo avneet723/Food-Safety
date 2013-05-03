@@ -14,12 +14,16 @@ import src.ServingFoodItem;
  
 exports = Class(ui.ImageView, function (supr) {
   this.helpText =
-  "Click on each item to take the serving temperature, then click the Temperature Log to record temperature and any needed corrective actions. " + 
-  "To avoid cross-contamination and cross-contact, make sure to sanitize your thermometer between different items. " +
+  "Click on each item to take the serving temperature, then click the Temperature Log to record temperature and any needed corrective actions.\n" + 
+  "To avoid cross-contamination and cross-contact, make sure to sanitize your thermometer between different items.\n" +
   "Cold food items should be held at 40 degrees or below and hot food items should be held at 140 degrees or above."
 
   this.endText =
   "You have successfully taken the temperature of all the items.";
+
+  this.infoText = {
+    lastItem: "Remember, foods can only be reheated once. All items that get reheated must be reheated to 165 degrees."
+  }
 
   this.init = function () {
     var dirty = false;
@@ -63,12 +67,16 @@ exports = Class(ui.ImageView, function (supr) {
 
     var self = this;
 
-    servingFoodItems.forEach(function(foodItem) {
+    servingFoodItems.forEach(function(foodItem, i) {
       foodItem.onInputSelect = function() {
         if (!foodItem.tempImage.style.visible) {
           if (dirty) {
             GC.app.showNotification("Please wipe your thermometer before using it on another item", "error");
             return;
+          }
+
+          if (i == 3) {
+            GC.app.showNotification(self.infoText.lastItem, "info");
           }
 
           servingFoodItems.forEach(function(otherItem) {
@@ -288,6 +296,14 @@ exports = Class(ui.ImageView, function (supr) {
         tempLogSigned(3);
       }
     }
+
+    var wipeLabel = new ui.TextView({
+      superview: this,
+      x: 40, y: 480,
+      width: 88, height: 40,
+      text: "Wipes",
+      size: 16
+    });
 
     this.mouseHand = new src.MouseHand({
       superview: this,

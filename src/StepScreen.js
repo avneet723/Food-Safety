@@ -21,17 +21,22 @@ exports = Class(ui.View, function (supr) {
       backgroundColor: "rgba(0, 0, 0, 0.1)"
     });
 
-    this.popup = new ui.TextView({
+    var backgroundInner = new ui.View({
       superview: this,
       x: 150, y: 150,
-      width: 800 - 300,
-      height: 600 - 300,
-      backgroundColor: "rgba(0, 0, 0, 0.7)",
+      width: 800 - 300, height: 600 - 300,
+      backgroundColor: "rgba(0, 0, 0, 0.7)"
+    });
+
+    this.popup = new ui.TextView({
+      superview: backgroundInner,
+      x: 15, y: 15,
+      width: 800 - 300 - 15,
+      height: 600 - 300 - 15,
       color: "white",
       //fontFamily: "'Lucidia Console', Monaco, monospace",
       fontFamily: "Arial, sans-serif",
       horizontalAlign: "left",
-      padding: 10,
       wrap: true,
       canHandleEvents: false,
       size: 20
@@ -63,5 +68,9 @@ exports = Class(ui.View, function (supr) {
 
   this.hide = function() {
     this.style.visible = false;
+    if (this.onFirstHide) {
+      this.onFirstHide();
+      this.onFirstHide = null;
+    }
   }
 });

@@ -42,6 +42,10 @@ exports = Class(GC.Application, function () {
       image: "resources/images/background.png"
     });
 
+    window.onresize = function() {
+      console.debug("browser size: (" + device.screen.width + ", " + device.screen.height + ")");
+    }
+
     var logo = new ImageView({
       superview: this,
       x: 10, y: 10,

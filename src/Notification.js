@@ -7,7 +7,7 @@ exports = Class(ui.View, function (supr) {
   this.init = function (opts) {
     supr(this, 'init', [{
       superview: opts.superview,
-      x: 800 - 250,
+      x: 800 - 260,
       y: 50,
       width: 260,
       height: 100,
@@ -17,11 +17,12 @@ exports = Class(ui.View, function (supr) {
 
     this.content = new ui.TextView({
       superview: this,
-      width: this.style.width,
-      height: this.style.height,
+      x: 15, y: 15,
+      width: this.style.width - 15,
+      height: this.style.height - 15,
       wrap: true,
-      padding: 15,
-      color: "white"
+      color: "white",
+      size: 16
     });
   };
 

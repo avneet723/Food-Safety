@@ -12,6 +12,7 @@ exports = Class(ui.ImageView, function (supr) {
     this.cooked = opts.cookedImage;
     this.minTemp = opts.minTemp;
     this.bottom = opts.side == "bottom";
+    this.name = opts.name;
 
     this.isCooked = false;
 
@@ -31,6 +32,15 @@ exports = Class(ui.ImageView, function (supr) {
       image: this.cooked,
       visible: false
     })
+
+    var name = new ui.TextView({
+      superview: this,
+      x: -50, y: 30,
+      width: 50, height: 40,
+      text: this.name,
+      color: "white",
+      size: 20
+    });
 
     this.timer = new src.Timer({
       superview: this,
@@ -69,8 +79,6 @@ exports = Class(ui.ImageView, function (supr) {
       backgroundColor: "rgba(255,255,255,0.5)",
       visible: false
     });
-
-    this.temp.start();
   }
 
   this.hideInfoStats = function() {

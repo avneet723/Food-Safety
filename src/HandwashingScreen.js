@@ -27,10 +27,16 @@ exports = Class(ui.View, function (supr) {
   "  f. Rinse your hands.\n" +
   "  g. Dry your hands.\n" +
   "  h. Use paper towel to turn off water.\n\n" +
-  "To finish this section you will have to put on a new pair of gloves.\n"
+  "To finish this section you will have to put on a new pair of gloves.\n\n" +
+  "Note: Selecting a step out of order will prompt an error message until you complete the correct step."
 
   this.endText =
   "You have successfully washed your hands.\n"
+
+  this.infoText = {
+    turnOffWater: "Remember to wash your hands right before you put on gloves, after using the restroom, after taking a break, or any time they become contaminated.",
+    gettingPaperTowels: "Did you know, the only employees Dining Services allows to use hand sanitizer instead of washing their hands are cashiers. However, if they go to handle food they must wash their hands first."
+  }
 
   this.buildView = function() {
     var self = this;
@@ -51,27 +57,6 @@ exports = Class(ui.View, function (supr) {
       image: "resources/images/handwashing.png"
     });
 
-    new ui.widget.ButtonView({
-      superview: this,
-      x: 350, y: 10,
-      width: 100,
-      height: 20,
-      title: "Instructions",
-      backgroundColor: "black",
-      text: { color: "white"}
-    }).onInputSelect = function() {
-      GC.app.showStepScreen(
-        "1. Check for paper towel\n" +
-        "2. Turn on the water\n" +
-        "3. Get soap\n" +
-        "4. Scrub hands to remove dirt for at least 20 sec.\n" +
-        "5. Rinse your hands\n" +
-        "6. Dry your hands\n" +
-        "7. Put on gloves\n"
-      );
-    };
-
-
     var waterStream = new ui.ImageView({
       superview: this,
       x: 347,
@@ -89,7 +74,9 @@ exports = Class(ui.View, function (supr) {
 
         scrubHands = false;
         rinseHands = true;
-      } else if (dirt) {
+      } else if (initial) {
+        // It is ok to rinse hands before soap.
+      } else if (!initial && dirt) {
         GC.app.showNotification("Please remove all dirt before rinsing hands.", "error");
       } else {
         GC.app.showNotification("You already rinsed your hands.", "error");
@@ -109,6 +96,10 @@ exports = Class(ui.View, function (supr) {
       if (initial || paperTowelInHand) {
         waterStream.style.visible = !waterStream.style.visible;
         waterOn = !waterOn;
+
+        if (!initial && !waterOn) {
+          GC.app.showNotification(self.infoText.turnOffWater, "info");
+        }
       } else {
         GC.app.showNotification("Don't touch the faucet when you are scrubbing your hands", "error");
       }
@@ -213,6 +204,17 @@ exports = Class(ui.View, function (supr) {
       loop: false
     });
 
+    var singleUseText = new ui.TextView({
+      superview: this,
+      x: 100, y: 35,
+      width: 180, height: 140,
+      text: "Single Use\nPaper Towels",
+      color: "white",
+      wrap: true,
+      size: 16,
+      canHandleEvents: false
+    });
+
     dispenser.setFrame = function(frame) {
       this._currentFrame = frame;
 			var image = this._animations[this._currentAnimationName].frames[this._currentFrame];
@@ -226,6 +228,8 @@ exports = Class(ui.View, function (supr) {
           dispenser.style.visible = true;
         }});
         paperTowelOut = true;
+
+        GC.app.showNotification(self.infoText.gettingPaperTowels, "info");
       }
     };
 
