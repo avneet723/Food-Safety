@@ -38,6 +38,8 @@ exports = Class(ui.View, function (supr) {
     gettingPaperTowels: "Did you know, the only employees Dining Services allows to use hand sanitizer instead of washing their hands are cashiers. However, if they go to handle food they must wash their hands first."
   }
 
+  this.completed = false;
+
   this.buildView = function() {
     var self = this;
 
@@ -144,6 +146,7 @@ exports = Class(ui.View, function (supr) {
 
         GC.app.glovesOn = true;
         GC.app.showEndScreen();
+        self.completed = true;
       } else if (paperTowelInHand && waterOn) {
         GC.app.showNotification("Please turn off water with paper towel before putting gloves on.", "error");
       } else {

@@ -13,9 +13,7 @@ import ui.ImageView as ImageView;
 // user imports
 import src.TitleScreen as TitleScreen;
 import src.GameScreen as GameScreen;
-import src.HelpScreen as HelpScreen;
-import src.ExitScreen as ExitScreen;
-import src.AboutScreen as AboutScreen;
+import src.InfoScreen as InfoScreen;
 
 import src.ServingScreen as ServingScreen;
 import src.HandwashingScreen as HandwashingScreen;
@@ -25,6 +23,7 @@ import src.StepScreen as StepScreen;
 import src.EndScreen as EndScreen;
 import src.Notification as Notification;
 import src.Status as Status;
+import src.GameEndScreen as GameEndScreen;
 
 exports = Class(GC.Application, function () {
   this.initUI = function () {
@@ -34,7 +33,7 @@ exports = Class(GC.Application, function () {
 
     this.score = 0;
     this.maxScore = 0;
-    this.glovesOn = true; //NOTE: change to false before release
+    this.glovesOn = false; //NOTE: change to false before release
 
     var background = new ImageView({
       superview: this,
@@ -88,9 +87,8 @@ exports = Class(GC.Application, function () {
     this.screens = {
       title: new TitleScreen(),
       game: new GameScreen(),
-      about: new AboutScreen(),
-      help: new HelpScreen(),
-      exit: new ExitScreen(),
+      info: new InfoScreen(),
+      gameEnd: new GameEndScreen(),
 
       serving: new ServingScreen(),
       handwashing: new HandwashingScreen(),
@@ -117,7 +115,7 @@ exports = Class(GC.Application, function () {
 
     this.rootView.push(this.screens[screenName]);
 
-    this.statusBar.style.visible = (screenName != 'title')
+    this.statusBar.style.visible = (!(screenName == 'title' || screenName == 'info'));
 
     if (this.screenNotVisited[screenName]) {
       this.screenNotVisited[screenName] = false;
@@ -142,6 +140,15 @@ exports = Class(GC.Application, function () {
 
     this.stepScreen.hide();
     this.endScreen.hide();
+
+    if (this.screens['handwashing'].completed && this.screens['serving'].completed && this.screens['cooking'].completed) {
+      this.goToScreen('gameEnd');
+    }
+  }
+
+  this.end = function() {
+    this.rootView.popAll(true);
+    this.goToScreen('title');
   }
 
   this.showStepScreen = function() {

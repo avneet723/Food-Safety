@@ -25,28 +25,37 @@ exports = Class(ui.ImageView, function (supr) {
   this.buildView = function() {
     var servingStation = new ui.widget.ButtonView({
       superview: this,
-      x: 0,
-      y: 600 - 100,
-      width: 250,
-      height: 100,
+      x: 500,
+      y: 300,
+      width: 400,
+      height: 200,
       backgroundColor: 'transparent',
     });
 
     var handwashingStation = new ui.widget.ButtonView({
       superview: this,
-      x: 260,
-      y: 216,
-      width: 250,
-      height: 105,
+      x: 400,
+      y: 0,
+      width: 400,
+      height: 200,
+      backgroundColor: 'transparent',
+    });
+
+    var handwashingStation2 = new ui.widget.ButtonView({
+      superview: this,
+      x: 600,
+      y: 0,
+      width: 200,
+      height: 300,
       backgroundColor: 'transparent',
     });
 
     var cookingStation = new ui.widget.ButtonView({
       superview: this,
-      x: 800 - 200,
-      y: 260,
-      width: 200,
-      height: 90,
+      x: 100,
+      y: 200,
+      width: 400,
+      height: 100,
       backgroundColor: 'transparent',
     });
 
@@ -56,6 +65,11 @@ exports = Class(ui.ImageView, function (supr) {
     };
 
     handwashingStation.onInputSelect = function(evt) {
+      evt.cancel();
+      GC.app.goToScreen('handwashing');
+    };
+
+    handwashingStation2.onInputSelect = function(evt) {
       evt.cancel();
       GC.app.goToScreen('handwashing');
     };

@@ -17,8 +17,8 @@ exports = Class(ui.ImageView, function (supr) {
   this.buildView = function () {
     var startButton = new ui.widget.ButtonView({
       superview: this,
-      x: 60,
-      y: 300,
+      x: 20,
+      y: 530,
       width: 95,
       height: 45,
       images: {
@@ -27,27 +27,15 @@ exports = Class(ui.ImageView, function (supr) {
       }
     });
 
-    var helpButton = new ui.widget.ButtonView({
+    var infoButton = new ui.widget.ButtonView({
       superview: this,
-      x: 60,
-      y: 400,
-      width: 97,
+      x: 150,
+      y: 530,
+      width: 95,
       height: 45, 
       images: {
-        up: "resources/images/Help-None.png",
-        down: "resources/images/Help-Active.png",
-      }
-    });
-
-    var aboutButton = new ui.widget.ButtonView({
-      superview: this,
-      x: 60,
-      y: 500,
-      width: 107,
-      height: 45, 
-      images: {
-        up: "resources/images/About-None.png",
-        down: "resources/images/About-Active.png",
+        up: "resources/images/Info-None.png",
+        down: "resources/images/Info-Active.png",
       }
     });
 
@@ -55,12 +43,8 @@ exports = Class(ui.ImageView, function (supr) {
       GC.app.goToScreen('game');
     };
 
-    helpButton.onInputSelect = function() {
-      GC.app.goToScreen('help');
-    };
-
-    aboutButton.onInputSelect = function() {
-      GC.app.goToScreen('about');
+    infoButton.onInputSelect = function() {
+      GC.app.goToScreen('info');
     };
   };
 });

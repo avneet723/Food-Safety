@@ -25,6 +25,8 @@ exports = Class(ui.ImageView, function (supr) {
     lastItem: "Remember, foods can only be reheated once. All items that get reheated must be reheated to 165 degrees."
   }
 
+  this.completed = false;
+
   this.init = function () {
     var dirty = false;
 
@@ -251,6 +253,7 @@ exports = Class(ui.ImageView, function (supr) {
       }
 
       GC.app.showEndScreen();
+      self.completed = true;
     }
 
     tempLogButtons[0].onInputSelect = function() {

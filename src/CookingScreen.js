@@ -12,6 +12,24 @@ import src.FoodItem;
 import src.MouseHand;
  
 exports = Class(ui.ImageView, function (supr) {
+  this.helpText =
+    "After the items have finished cooking, use the thermometer to take the temperature. " + 
+    "You need to leave the thermometer in for 15 seconds. " +
+    "To avoid cross-contamination and cross-contact, make sure to sanitize your thermometer between different items.\n\n" +
+    "Beef, pork, Seafood, Eggs – 145°F\n" +
+    "Ground Beef/Pork, Sausage – 155°F\n" +
+    "Poultry (Chicken/Turkey/Duck) – 165°F\n\n" +
+    "Once you have taken the temperature for 15 seconds click the Serve button to continue."
+
+  this.endText = 
+  "You have successfully cooked the food.\nPlease proceed to the next station.";
+
+  this.infoText = {
+    roast: "If this were a roast you would have to hold the thermometer for four minutes because it is a larger product."
+  }
+
+  this.completed = false;
+
   this.init = function () {
     opts = {
       image: "resources/images/stove.png"
@@ -101,6 +119,7 @@ exports = Class(ui.ImageView, function (supr) {
           }
 
           GC.app.showEndScreen();
+          self.completed = true;
         }
       }
     });
@@ -143,21 +162,5 @@ exports = Class(ui.ImageView, function (supr) {
 
   this.onInputMove = function(evt, point) {
     this.mouseHand.update(point);
-  }
-
-  this.helpText =
-    "After the items have finished cooking, use the thermometer to take the temperature. " + 
-    "You need to leave the thermometer in for 15 seconds. " +
-    "To avoid cross-contamination and cross-contact, make sure to sanitize your thermometer between different items.\n\n" +
-    "Beef, pork, Seafood, Eggs – 145°F\n" +
-    "Ground Beef/Pork, Sausage – 155°F\n" +
-    "Poultry (Chicken/Turkey/Duck) – 165°F\n\n" +
-    "Once you have taken the temperature for 15 seconds click the Serve button to continue."
-
-  this.endText = 
-  "You have successfully cooked the food.\nPlease proceed to the next station.";
-
-  this.infoText = {
-    roast: "If this were a roast you would have to hold the thermometer for four minutes because it is a larger product."
   }
 });

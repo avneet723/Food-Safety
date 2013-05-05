@@ -2,6 +2,7 @@ import ui.View;
 import ui.ImageView;
 import ui.SpriteView;
 import ui.TextView;
+import ui.widget.ButtonView;
 import src.TextImageView;
 
 exports = Class(ui.ImageView, function (supr) {
@@ -13,21 +14,33 @@ exports = Class(ui.ImageView, function (supr) {
       image: "resources/images/statusBar.png"
     }]);
 
-    new ui.View({
+    var back = new ui.widget.ButtonView({
       superview: this,
       x: 0, y: 0,
       width: 100,
       height: 40,
-    }).onInputSelect = function() {
-      GC.app.goBack();
-    };
+      images: {
+        up: "resources/images/Back-None.png",
+        down: "resources/images/Back-Active.png"
+      }
+    });
 
-    new ui.View({
+    back.onInputSelect = function() {
+      GC.app.goBack();
+    }
+
+    var help = new ui.widget.ButtonView({
       superview: this,
-      x: 700,
+      x: 700, y: 0,
       width: 100,
-      height: 40
-    }).onInputSelect = function() {
+      height: 40,
+      images: {
+        up: "resources/images/Help-None.png",
+        down: "resources/images/Help-Active.png"
+      }
+    });
+
+    help.onInputSelect = function() {
       GC.app.showStepScreen();
     }
 
