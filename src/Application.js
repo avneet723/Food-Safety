@@ -115,7 +115,7 @@ exports = Class(GC.Application, function () {
 
     this.rootView.push(this.screens[screenName]);
 
-    this.statusBar.style.visible = (!(screenName == 'title' || screenName == 'info'));
+    this.statusBar.style.visible = (!(screenName == 'title' || screenName == 'info' || screenName == 'gameEnd'));
 
     if (this.screenNotVisited[screenName]) {
       this.screenNotVisited[screenName] = false;
@@ -142,13 +142,13 @@ exports = Class(GC.Application, function () {
     this.endScreen.hide();
 
     if (this.screens['handwashing'].completed && this.screens['serving'].completed && this.screens['cooking'].completed) {
+      this.screens['gameEnd'].setScore(GC.app.score);
       this.goToScreen('gameEnd');
     }
   }
 
   this.end = function() {
-    this.rootView.popAll(true);
-    this.goToScreen('title');
+    document.location.reload();
   }
 
   this.showStepScreen = function() {

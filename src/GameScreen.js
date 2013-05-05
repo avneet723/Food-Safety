@@ -55,7 +55,7 @@ exports = Class(ui.ImageView, function (supr) {
       x: 100,
       y: 200,
       width: 400,
-      height: 100,
+      height: 150,
       backgroundColor: 'transparent',
     });
 
