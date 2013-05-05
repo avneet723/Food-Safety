@@ -23,5 +23,5 @@ connect)
 For some reason game closure dose not include the charset in the generated
 index.html file, making Unicode characters show up incorrectly. To fix, open
 build/release/browser-desktop/index.html and add
-    <meta charset="html"/>
+    `<meta charset="html"/>`
 to the head section of the document.
