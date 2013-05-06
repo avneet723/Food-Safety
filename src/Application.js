@@ -35,6 +35,18 @@ exports = Class(GC.Application, function () {
     this.maxScore = 0;
     this.glovesOn = false; //NOTE: change to false before release
 
+    this.screens = {
+      title: new TitleScreen(),
+      game: new GameScreen(),
+      info: new InfoScreen(),
+      gameEnd: new GameEndScreen(),
+
+      serving: new ServingScreen(),
+      handwashing: new HandwashingScreen(),
+      cooking: new CookingScreen(),
+    };
+
+
     var background = new ImageView({
       superview: this,
       width: device.screen.width, height: device.screen.height,
@@ -84,17 +96,6 @@ exports = Class(GC.Application, function () {
     });
     this.statusBar.style.visible = false;
                
-    this.screens = {
-      title: new TitleScreen(),
-      game: new GameScreen(),
-      info: new InfoScreen(),
-      gameEnd: new GameEndScreen(),
-
-      serving: new ServingScreen(),
-      handwashing: new HandwashingScreen(),
-      cooking: new CookingScreen(),
-    };
-
     this.screenNotVisited = {
       game: true,
       serving: true,
