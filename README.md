@@ -2,7 +2,7 @@ Food Safety Game 100
 ====================
 
 This is the Food Safety Game for VT Dining Services. You can contact the
-developers at `avneeet@vt.edu` and `evant@vt.edu`.
+developers at `avneet@vt.edu` and `evant@vt.edu`.
 
 Requirements
 ------------
