@@ -30,7 +30,7 @@ exports = Class(ui.View, function (supr) {
       superview: this,
       width: 800,
       height: 600,
-      image: "resources/images/info-background.jpg"
+      image: "resources/images/infoScreen-background.jpg"
     });
 
     var backgroundInner = new ui.View({
