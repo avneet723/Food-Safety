@@ -1,6 +1,6 @@
 /*
  * Food Safety 100 Game - Food Safety Game for VT Dining Services
- * Copyright (C) 2013 Avneet Singh <avneeet@vt.edu>, Evan Tatarka<evant@vt.edu>
+ * Copyright (C) 2013 Avneet Singh <avneet@vt.edu>, Evan Tatarka<evant@vt.edu>
  *
  * This file is part of Food Safety 100 Game.
  *

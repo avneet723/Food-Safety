@@ -1,6 +1,6 @@
 /*
  * Food Safety 100 Game - Food Safety Game for VT Dining Services
- * Copyright (C) 2013 Avneet Singh <avneeet@vt.edu>, Evan Tatarka<evant@vt.edu>
+ * Copyright (C) 2013 Avneet Singh <avneet@vt.edu>, Evan Tatarka<evant@vt.edu>
  *
  * This file is part of Food Safety 100 Game.
  *
@@ -110,7 +110,7 @@ exports = Class(ui.View, function (supr) {
     this.score.setText("Score: " + score + "/400");
 
     if (GC.app.score >= 350) {
-      this.popup.setText("Congratulations, you have successfully complted the game!");
+      this.popup.setText("Congratulations, you have successfully completed the game!");
     } else {
       this.popup.setText("While you completed each station, your score tells us you may want to play again for more practice.");
     }
