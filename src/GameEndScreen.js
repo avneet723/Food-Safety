@@ -40,12 +40,6 @@ exports = Class(ui.View, function (supr) {
     this.style.height = 600;
     this.style.visible = false;
 
-    if (GC.app.score >= 350) {
-      this.text = "Congratulations, you have successfully complted the game!"
-    } else {
-      this.text = "While you completed each station, your score tells us you may want to play again for more practice."
-    }
-
     var background = new ui.ImageView({
       superview: this,
       width: 800,
@@ -85,13 +79,11 @@ exports = Class(ui.View, function (supr) {
       width: backgroundInner.style.width - 200,
       height: backgroundInner.style.height - 40,
       color: "white",
-      //fontFamily: "'Lucidia Console', Monaco, monospace",
       fontFamily: "Arial, sans-serif",
       horizontalAlign: "left",
       wrap: true,
       canHandleEvents: false,
-      size: 20,
-      text: this.text
+      size: 20
     });
 
     var back = new ui.widget.ButtonView({
@@ -116,5 +108,11 @@ exports = Class(ui.View, function (supr) {
 
   this.setScore = function(score) {
     this.score.setText("Score: " + score + "/400");
+
+    if (GC.app.score >= 350) {
+      this.popup.setText("Congratulations, you have successfully complted the game!");
+    } else {
+      this.popup.setText("While you completed each station, your score tells us you may want to play again for more practice.");
+    }
   }
 });
